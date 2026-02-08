@@ -9,6 +9,7 @@ import webpages3 from "@/assets/webpages-3.jpg";
 import photography1 from "@/assets/photography-1.jpg";
 import photography2 from "@/assets/photography-2.jpg";
 import photography3 from "@/assets/photography-3.jpg";
+import omakuva from "@/assets/omakuva.jpeg";
 
 function AnimatedSection({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -479,24 +480,43 @@ export default function Index() {
             padding: "3rem",
             boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
             border: "1px solid #f1f5f9",
+            display: "flex",
+            gap: "3rem",
+            alignItems: "stretch",
           }}>
-            <h2 style={{
-              fontSize: 56,
-              letterSpacing: "-0.08em",
-              fontFamily: "'Playfair Display', serif",
-              textTransform: "uppercase",
-              lineHeight: 1,
-              color: "#1a1a1a",
-              margin: "0 0 1.5rem 0",
-            }}>
-              About Me
-            </h2>
-            <p style={{ color: "#1e293b", marginBottom: "1.5rem", fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
-              Olen iloinen ja utelias esteetikko ja kiinnostunut siitä, miten visuaalisuus vaikuttaa meihin ja ympäristöömme. Olen opiskellut visuaalista viestintää ja kuvan kenttää monelta kantilta, sekä sen toteuttamisen että vaikuttamisen keinoja. Kuvallisten välineiden antamat kokemukset ja elämykset ovat ajassamme olennaisia. Arjessamme läsnäoleva design ei ole erillään siitä vaan muokkaa tapaamme suhtautua käyttämiimme palveluihin ja todellisuuteeen, missä elämme. Siksi saumattoman ja kauniin käyttö- ja palvelukokemuksen suunnittelu on hyvin palkitseva kokemus!
-            </p>
-            <p style={{ color: "#1e293b", margin: 0, fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
-              Teknisen ja tuottavan työni ulkopuolella nautin kauneudesta ja hitaudesta vanhan hirsitalon remontoimisella ja maalaamalla koloristisia abstrakteja maalauksia.
-            </p>
+            {/* Tekstipalsta vasemmalla */}
+            <div style={{ flex: 1 }}>
+              <h2 style={{
+                fontSize: 56,
+                letterSpacing: "-0.08em",
+                fontFamily: "'Playfair Display', serif",
+                textTransform: "uppercase",
+                lineHeight: 1,
+                color: "#1a1a1a",
+                margin: "0 0 1.5rem 0",
+              }}>
+                About Me
+              </h2>
+              <p style={{ color: "#1e293b", marginBottom: "1.5rem", fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
+                Olen iloinen ja utelias esteetikko ja kiinnostunut siitä, miten visuaalisuus vaikuttaa meihin ja ympäristöömme. Olen opiskellut visuaalista viestintää ja kuvan kenttää monelta kantilta, sekä sen toteuttamisen että vaikuttamisen keinoja. Kuvallisten välineiden antamat kokemukset ja elämykset ovat ajassamme olennaisia. Arjessamme läsnäoleva design ei ole erillään siitä vaan muokkaa tapaamme suhtautua käyttämiimme palveluihin ja todellisuuteeen, missä elämme. Siksi saumattoman ja kauniin käyttö- ja palvelukokemuksen suunnittelu on hyvin palkitseva kokemus!
+              </p>
+              <p style={{ color: "#1e293b", margin: 0, fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
+                Teknisen ja tuottavan työni ulkopuolella nautin kauneudesta ja hitaudesta vanhan hirsitalon remontoimisella ja maalaamalla koloristisia abstrakteja maalauksia.
+              </p>
+            </div>
+            {/* Kuva oikealla */}
+            <div style={{ flex: "0 0 320px" }}>
+              <img
+                src={omakuva}
+                alt="Profiilikuva"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "1rem",
+                }}
+              />
+            </div>
           </div>
         </AnimatedSection>
       </section>
