@@ -80,7 +80,7 @@ export default function Index() {
     { icon: Palette, name: "Visual Design", description: "Photoshop, Canva, Procreate" },
     { icon: Camera, name: "Photography", description: "Visual storytelling" },
     { icon: Globe, name: "Web Design", description: "WordPress, Squarespace" },
-    { icon: Sparkles, name: "AI-Assisted Dev", description: "Cursor, Claude, v0, Lovable" },
+    { icon: Sparkles, name: "AI-Assisted Dev", description: "Cursor, Claude, Lovable, GitHub" },
   ];
 
 
