@@ -69,9 +69,9 @@ export default function Index() {
     { url: graphicdesign3, alt: "Graafinen suunnittelu: väripaletti ja brändi-identiteetti", category: "Brand Identity" },
     { url: graphicdesign1, alt: "Graafinen suunnittelu: Kino Tapiolan kuponki", category: "Brand Identity" },
     { url: graphicdesign2, alt: "Graafinen suunnittelu: Noisniemen taittopohja", category: "Brand Identity" },
-    { url: webpages1, alt: "Verkkosivusuunnittelu: responsiivinen etusivu", category: "Web Design" },
-    { url: webpages2, alt: "Verkkosivusuunnittelu: yrityksen verkkosivu", category: "Web Design" },
-    { url: webpages3, alt: "Verkkosivusuunnittelu: portfoliosivuston näkymä", category: "Web Design", objectPosition: "top" },
+    { url: webpages1, alt: "Verkkosivusuunnittelu: responsiivinen etusivu", category: "Web and App Design" },
+    { url: webpages2, alt: "Verkkosivusuunnittelu: yrityksen verkkosivu", category: "Web and App Design" },
+    { url: webpages3, alt: "Verkkosivusuunnittelu: portfoliosivuston näkymä", category: "Web and App Design", objectPosition: "top" },
     { url: photography3, alt: "Valokuvaus: tunnelmallinen maisemakuva", category: "Photography" },
     { url: photography2, alt: "Valokuvaus: muotokuva luonnonvalossa", category: "Photography" },
     { url: photography1, alt: "Valokuvaus: kaupunkinäkymä ja arkkitehtuuri", category: "Photography" },
@@ -80,7 +80,7 @@ export default function Index() {
   const skills = [
     { icon: Palette, name: "Visual Design", description: "Photoshop, Canva, Procreate" },
     { icon: Camera, name: "Photography", description: "Visual storytelling" },
-    { icon: Globe, name: "Web Design", description: "WordPress, Squarespace" },
+    { icon: Globe, name: "Web and App Design", description: "WordPress, Squarespace" },
     { icon: Sparkles, name: "AI-Assisted Dev", description: "Cursor, Claude, Lovable, GitHub" },
   ];
 
@@ -113,7 +113,7 @@ export default function Index() {
   const getAspectRatio = (category: string) => {
     switch (category) {
       case "Brand Identity": return "100%";    // 1:1
-      case "Web Design": return "75%";          // 4:3
+      case "Web and App Design": return "75%";  // 4:3
       case "Photography": return "133.33%";     // 3:4
       default: return "75%";
     }
@@ -387,7 +387,7 @@ export default function Index() {
               Selected Works
             </h2>
 
-            {["Brand Identity", "Web Design", "Photography"].map((category) => (
+            {["Brand Identity", "Web and App Design", "Photography"].map((category) => (
               <div key={category} style={{ marginBottom: "4rem" }}>
                 <h3 style={{
                   fontSize: 22,
