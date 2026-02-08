@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Mail, Linkedin, Palette, Sparkles, Code, Camera, Globe, Wrench } from "lucide-react";
+import graphicdesign1 from "@/assets/graphicdesign-1.jpg";
+import graphicdesign2 from "@/assets/graphicdesign-2.jpg";
+import graphicdesign3 from "@/assets/graphicdesign-3.jpg";
 
 function AnimatedSection({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -55,9 +58,9 @@ export default function Index() {
   }, []);
 
   const projects: Project[] = [
-    { url: "/images/color-palette.jpg", alt: "Color Palette", category: "Brand Identity" },
-    { url: "/images/kino-tapiola-coupons.jpg", alt: "Kino Tapiola Coupons", category: "Brand Identity" },
-    { url: "/images/kino-tapiola-sarjakortti.jpg", alt: "Kino Tapiola Sarjakortti", category: "Brand Identity" },
+    { url: graphicdesign3, alt: "Color Palette", category: "Brand Identity" },
+    { url: graphicdesign1, alt: "Kino Tapiola Coupons", category: "Brand Identity" },
+    { url: graphicdesign2, alt: "Noisniemi Layout", category: "Brand Identity" },
     { url: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop", alt: "Web Design 1", category: "Web Design" },
     { url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop", alt: "Web Design 2", category: "Web Design" },
     { url: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&h=600&fit=crop", alt: "Web Design 3", category: "Web Design" },
