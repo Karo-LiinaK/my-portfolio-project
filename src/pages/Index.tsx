@@ -70,9 +70,9 @@ export default function Index() {
     { url: webpages1, alt: "Web Design 1", category: "Web Design" },
     { url: webpages2, alt: "Web Design 2", category: "Web Design" },
     { url: webpages3, alt: "Web Design 3", category: "Web Design" },
-    { url: photography1, alt: "Photography 1", category: "Photography" },
-    { url: photography2, alt: "Photography 2", category: "Photography" },
     { url: photography3, alt: "Photography 3", category: "Photography" },
+    { url: photography2, alt: "Photography 2", category: "Photography" },
+    { url: photography1, alt: "Photography 1", category: "Photography" },
   ];
 
   const skills = [
