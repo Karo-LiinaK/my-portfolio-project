@@ -627,7 +627,7 @@ export default function Index() {
               Let's Connect
             </h2>
             <p style={{ color: "#1e293b", marginBottom: "3rem", fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
-              Olen innolla etsimässä uusia uramahdollisuuksia ja paikkaa, jossa pääsen kasvamaan osana ammattitaitoista kehitystiimiä. Arvostan hyvää tiimihenkeä ja mahdollisuutta oppia kokeneemmilta kollegoilta – uskon, että parhaat digitaaliset tuotteet syntyvät aina yhteistyönä. Jos etsit tyyppiä, joka yhdistää design-silmän ja uteliaisuuden uusiin teknologioihin, jutellaan lisää!
+              Etsin innolla paikkaa, jossa pääsen kasvamaan osana ammattitaitoista työyhteisöä. Arvostan hyvää porukkahenkeä ja mahdollisuutta oppia kokeneemmilta kollegoilta – uskon, että parhaat digitaaliset palvelut syntyvät aina tiiviinä yhteistyönä. Jos etsit tyyppiä, joka yhdistää design-silmän ja uteliaisuuden uusiin teknologioihin, ota yhteyttä!
             </p>
 
             <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: "1.5rem", flexWrap: "wrap", marginBottom: "3rem" }}>
