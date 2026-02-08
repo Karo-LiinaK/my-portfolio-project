@@ -6,6 +6,9 @@ import graphicdesign3 from "@/assets/graphicdesign-3.jpg";
 import webpages1 from "@/assets/webpages-1.jpg";
 import webpages2 from "@/assets/webpages-2.jpg";
 import webpages3 from "@/assets/webpages-3.jpg";
+import photography1 from "@/assets/photography-1.jpg";
+import photography2 from "@/assets/photography-2.jpg";
+import photography3 from "@/assets/photography-3.jpg";
 
 function AnimatedSection({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -67,9 +70,9 @@ export default function Index() {
     { url: webpages1, alt: "Web Design 1", category: "Web Design" },
     { url: webpages2, alt: "Web Design 2", category: "Web Design" },
     { url: webpages3, alt: "Web Design 3", category: "Web Design" },
-    { url: "https://images.unsplash.com/photo-1452457807411-4979b707c5be?w=800&h=600&fit=crop", alt: "Photography 1", category: "Photography" },
-    { url: "https://images.unsplash.com/photo-1511576661531-b34d7da5d0bb?w=800&h=600&fit=crop", alt: "Photography 2", category: "Photography" },
-    { url: "https://images.unsplash.com/photo-1542435503-956c469947f6?w=800&h=600&fit=crop", alt: "Photography 3", category: "Photography" },
+    { url: photography1, alt: "Photography 1", category: "Photography" },
+    { url: photography2, alt: "Photography 2", category: "Photography" },
+    { url: photography3, alt: "Photography 3", category: "Photography" },
   ];
 
   const skills = [
