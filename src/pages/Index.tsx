@@ -42,6 +42,7 @@ interface Project {
   url: string;
   alt: string;
   category: string;
+  objectPosition?: string;
 }
 
 export default function Index() {
@@ -70,7 +71,7 @@ export default function Index() {
     { url: graphicdesign2, alt: "Graafinen suunnittelu: Noisniemen taittopohja", category: "Brand Identity" },
     { url: webpages1, alt: "Verkkosivusuunnittelu: responsiivinen etusivu", category: "Web Design" },
     { url: webpages2, alt: "Verkkosivusuunnittelu: yrityksen verkkosivu", category: "Web Design" },
-    { url: webpages3, alt: "Verkkosivusuunnittelu: portfoliosivuston näkymä", category: "Web Design" },
+    { url: webpages3, alt: "Verkkosivusuunnittelu: portfoliosivuston näkymä", category: "Web Design", objectPosition: "top" },
     { url: photography3, alt: "Valokuvaus: tunnelmallinen maisemakuva", category: "Photography" },
     { url: photography2, alt: "Valokuvaus: muotokuva luonnonvalossa", category: "Photography" },
     { url: photography1, alt: "Valokuvaus: kaupunkinäkymä ja arkkitehtuuri", category: "Photography" },
@@ -423,7 +424,7 @@ export default function Index() {
                           src={project.url}
                           alt={project.alt}
                           loading="lazy"
-                          style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                          style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: project.objectPosition || "center" }}
                         />
                       </div>
                     </button>
