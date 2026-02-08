@@ -20,10 +20,10 @@ Tekninen pino: React, TypeScript ja Tailwind CSS.
 💡 Mitä tuon tiimiinne?
 Tämä projekti osoittaa kykyni:
 
-Ratkaisukeskeinen lähestymistapa: Otan uudet teknologiat ja ohjelmistot haltuun keskittyen siihen, miten ne ratkaisevat käsillä olevan haasteen parhaiten.
+-ratkaisukeskeiseen lähestymistapaan: Otan uudet teknologiat ja ohjelmistot haltuun keskittyen siihen, miten ne ratkaisevat käsillä olevan haasteen parhaiten.
 
-Hyödyntää uusia työkaluja: Otan tekoälystä täyden hyödyn irti kehitysprosessin tehostamiseksi.
+-hyödyntää uusia työkaluja: Otan tekoälystä täyden hyödyn irti kehitysprosessin tehostamiseksi.
 
-Ymmärtää kokonaisuuksia: Hallitsen kaaren visuaalisesta ideasta julkaistuun tuotteeseen.
+-ymmärtää kokonaisuuksia: Hallitsen kaaren visuaalisesta ideasta julkaistuun tuotteeseen.
 
-Oppia ja soveltaa: En pelkää tarttua teknisiin haasteisiin ja hioa yksityiskohtia (kuten saavutettavuutta) kunnes lopputulos on ammattimainen.
+-oppia ja soveltaa: En pelkää tarttua teknisiin haasteisiin ja hioa yksityiskohtia (kuten saavutettavuutta) kunnes lopputulos on ammattimainen.
