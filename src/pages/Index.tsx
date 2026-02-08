@@ -176,7 +176,7 @@ export default function Index() {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
-            textTransform: "lowercase",
+            textTransform: "capitalize",
             margin: 0,
             fontSize: 20,
             fontFamily: "'Playfair Display', serif",
