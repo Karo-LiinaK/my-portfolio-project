@@ -80,9 +80,7 @@ export default function Index() {
     { icon: Palette, name: "Visual Design", description: "Photoshop, Canva, Procreate" },
     { icon: Camera, name: "Photography", description: "Visual storytelling" },
     { icon: Globe, name: "Web Design", description: "WordPress, Squarespace" },
-    { icon: Code, name: "HTML & CSS", description: "Web fundamentals" },
     { icon: Sparkles, name: "AI-Assisted Dev", description: "Cursor, Claude, v0, Lovable" },
-    { icon: Wrench, name: "Working with", description: "React, Tailwind, JavaScript" },
   ];
 
 
@@ -532,7 +530,7 @@ export default function Index() {
             Tools and expertise I bring to every project
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.5rem", maxWidth: "640px", margin: "0 auto" }}>
             {skills.map((skill, index) => {
               const Icon = skill.icon;
               return (
