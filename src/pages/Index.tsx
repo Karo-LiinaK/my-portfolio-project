@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Mail, Linkedin, Palette, Sparkles, Code, Camera, Globe, Wrench } from "lucide-react";
+import { Mail, Linkedin, Palette, Sparkles, Code, Camera, Globe, Wrench, Menu, X } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import graphicdesign1 from "@/assets/graphicdesign-1.jpg";
 import graphicdesign2 from "@/assets/graphicdesign-2.jpg";
 import graphicdesign3 from "@/assets/graphicdesign-3.jpg";
@@ -50,6 +51,8 @@ export default function Index() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   const rotatingWords = ["COLOR", "TYPOGRAPHY", "PHOTOGRAPHY", "WEB DESIGN", "VIBE CODING"];
 
@@ -64,6 +67,11 @@ export default function Index() {
     }, 2400);
     return () => clearInterval(interval);
   }, []);
+
+  // Close mobile menu on resize to desktop
+  useEffect(() => {
+    if (!isMobile) setMobileMenuOpen(false);
+  }, [isMobile]);
 
   const projects: Project[] = [
     { url: graphicdesign3, alt: "Graafinen suunnittelu: väripaletti ja brändi-identiteetti", category: "Brand Identity" },
@@ -84,9 +92,14 @@ export default function Index() {
     { icon: Sparkles, name: "AI-Assisted Dev", description: "Cursor, Claude, Lovable, GitHub" },
   ];
 
-
   const scrollToContact = () => {
+    setMobileMenuOpen(false);
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleNavClick = (id: string) => {
+    setMobileMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const getLetterSpacing = (word: string) => {
@@ -112,12 +125,21 @@ export default function Index() {
 
   const getAspectRatio = (category: string) => {
     switch (category) {
-      case "Brand Identity": return "100%";    // 1:1
-      case "Web and App Design": return "75%";  // 4:3
-      case "Photography": return "133.33%";     // 3:4
+      case "Brand Identity": return "100%";
+      case "Web and App Design": return "75%";
+      case "Photography": return "133.33%";
       default: return "75%";
     }
   };
+
+  // Responsive sizes
+  const heroMainSize = isMobile ? 42 : 76;
+  const heroDesignerSize = isMobile ? 72 : 160;
+  const heroCreatingSize = isMobile ? 72 : 160;
+  const heroRotatingSize = isMobile ? 36 : 76;
+  const sectionTitleSize = isMobile ? 36 : 56;
+  const gridCols = isMobile ? "repeat(1, 1fr)" : "repeat(3, 1fr)";
+  const skillGridCols = isMobile ? "repeat(2, 1fr)" : "repeat(2, 1fr)";
 
   return (
     <div style={{ minHeight: "100vh", fontFamily: "'Oswald', sans-serif", fontSize: "16px", backgroundColor: "#F5F1D3" }}>
@@ -155,6 +177,13 @@ export default function Index() {
         .rotating-word-enter {
           animation: slideUp 0.4s ease-in-out forwards;
         }
+        @keyframes mobileMenuIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .mobile-menu-enter {
+          animation: mobileMenuIn 0.25s ease-out forwards;
+        }
       `}</style>
 
       {/* HEADER */}
@@ -170,7 +199,7 @@ export default function Index() {
           transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
         }}
       >
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "1.25rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: isMobile ? "1rem" : "1.25rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <h6 style={{
             fontWeight: "bold",
             background: "linear-gradient(to right, #4f46e5, #9333ea)",
@@ -179,62 +208,134 @@ export default function Index() {
             backgroundClip: "text",
             textTransform: "capitalize",
             margin: 0,
-            fontSize: 20,
+            fontSize: isMobile ? 17 : 20,
             fontFamily: "'Playfair Display', serif",
             letterSpacing: "-0.5%",
           }}>
             Karo-Liina Kähkölä
           </h6>
-          <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+
+          {/* Desktop nav */}
+          {!isMobile && (
+            <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+              {["Works", "About", "Skills"].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="nav-link"
+                  style={{ color: "#334155", textDecoration: "none", fontWeight: 500, transition: "color 0.3s" }}
+                >
+                  {item}
+                </a>
+              ))}
+              <button
+                className="btn-hover"
+                onClick={scrollToContact}
+                style={{
+                  padding: "0.625rem 1.5rem",
+                  background: "linear-gradient(to right, #4f46e5, #9333ea)",
+                  color: "white",
+                  borderRadius: 9999,
+                  fontWeight: 600,
+                  border: "none",
+                  cursor: "pointer",
+                  boxShadow: "0 10px 15px -3px rgba(79, 70, 229, 0.3)",
+                  fontFamily: "'Oswald', sans-serif",
+                  fontSize: 14,
+                  transition: "transform 0.2s",
+                }}
+              >
+                Contact
+              </button>
+            </nav>
+          )}
+
+          {/* Mobile hamburger */}
+          {isMobile && (
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Sulje valikko" : "Avaa valikko"}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "0.5rem",
+                color: "#334155",
+              }}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          )}
+        </div>
+
+        {/* Mobile menu dropdown */}
+        {isMobile && mobileMenuOpen && (
+          <nav
+            className="mobile-menu-enter"
+            style={{
+              backgroundColor: "#F5F1D3",
+              borderTop: "1px solid rgba(226, 232, 240, 0.3)",
+              padding: "1rem 1.5rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
+          >
             {["Works", "About", "Skills"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="nav-link"
-                style={{ color: "#334155", textDecoration: "none", fontWeight: 500, transition: "color 0.3s" }}
+                onClick={(e) => { e.preventDefault(); handleNavClick(item.toLowerCase()); }}
+                style={{
+                  color: "#334155",
+                  textDecoration: "none",
+                  fontWeight: 500,
+                  fontSize: 18,
+                  padding: "0.5rem 0",
+                  borderBottom: "1px solid rgba(226, 232, 240, 0.3)",
+                }}
               >
                 {item}
               </a>
             ))}
             <button
-              className="btn-hover"
               onClick={scrollToContact}
               style={{
-                padding: "0.625rem 1.5rem",
+                padding: "0.75rem 1.5rem",
                 background: "linear-gradient(to right, #4f46e5, #9333ea)",
                 color: "white",
                 borderRadius: 9999,
                 fontWeight: 600,
                 border: "none",
                 cursor: "pointer",
-                boxShadow: "0 10px 15px -3px rgba(79, 70, 229, 0.3)",
                 fontFamily: "'Oswald', sans-serif",
                 fontSize: 14,
-                transition: "transform 0.2s",
+                marginTop: "0.5rem",
               }}
             >
               Contact
             </button>
           </nav>
-        </div>
+        )}
       </header>
 
       {/* HERO */}
-      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "8rem 1.5rem", overflow: "visible" }}>
+      <section style={{ maxWidth: 1280, margin: "0 auto", padding: isMobile ? "3rem 1rem" : "8rem 1.5rem", overflow: "visible" }}>
         <div style={{ display: "flex", flexDirection: "row", gap: "3rem", alignItems: "flex-start", flexWrap: "wrap", overflow: "visible" }}>
           <div
             style={{
               flex: "1 1 60%",
-              minWidth: 300,
+              minWidth: isMobile ? 0 : 300,
+              width: "100%",
               overflow: "visible",
               opacity: heroVisible ? 1 : 0,
               transform: heroVisible ? "translateY(0)" : "translateY(40px)",
               transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
             }}
           >
-            <div style={{ marginBottom: "3rem", overflow: "visible" }}>
+            <div style={{ marginBottom: isMobile ? "1.5rem" : "3rem", overflow: "visible" }}>
               <div style={{
-                fontSize: 76,
+                fontSize: heroMainSize,
                 letterSpacing: "-0.08em",
                 fontFamily: "'Playfair Display', serif",
                 textTransform: "uppercase",
@@ -245,7 +346,7 @@ export default function Index() {
                 Visual
               </div>
               <div style={{
-                fontSize: 160,
+                fontSize: heroDesignerSize,
                 letterSpacing: -2,
                 fontWeight: 700,
                 fontFamily: "'Playfair Display', serif",
@@ -257,7 +358,7 @@ export default function Index() {
                 Designer
               </div>
               <div style={{
-                fontSize: 160,
+                fontSize: heroCreatingSize,
                 letterSpacing: -2,
                 fontWeight: 700,
                 fontFamily: "'Playfair Display', serif",
@@ -271,10 +372,10 @@ export default function Index() {
               }}>
                 Creating
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "0.5rem", overflow: "visible", width: "100%" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: isMobile ? "0.75rem" : "1.5rem", marginBottom: "0.5rem", overflow: "visible", width: "100%" }}>
                 <div style={{ display: "flex", alignItems: "flex-end", gap: "0.25rem", position: "relative", flexShrink: 0 }}>
                   <div style={{
-                    fontSize: 76,
+                    fontSize: heroMainSize,
                     letterSpacing: "-0.08em",
                     fontFamily: "'Playfair Display', serif",
                     textTransform: "uppercase",
@@ -284,7 +385,7 @@ export default function Index() {
                     Impact
                   </div>
                   <div style={{
-                    fontSize: 26,
+                    fontSize: isMobile ? 16 : 26,
                     display: "flex",
                     fontWeight: 700,
                     textTransform: "uppercase",
@@ -294,19 +395,19 @@ export default function Index() {
                     color: "#1a1a1a",
                     lineHeight: 2.5,
                     alignSelf: "flex-end",
-                    marginBottom: 7,
-                    marginLeft: -10,
+                    marginBottom: isMobile ? 4 : 7,
+                    marginLeft: isMobile ? -6 : -10,
                   }}>
                     with
                   </div>
                 </div>
-                <div style={{ position: "relative", height: 76, marginLeft: -25, overflow: "visible", width: 2000 }}>
+                <div style={{ position: "relative", height: heroRotatingSize, marginLeft: isMobile ? -12 : -25, overflow: "visible", width: isMobile ? 600 : 2000 }}>
                   <div
                     key={activeWord}
                     className="rotating-word-enter"
                     style={{
                       fontFamily: "'Playfair Display', serif",
-                      fontSize: 76,
+                      fontSize: heroRotatingSize,
                       fontWeight: 700,
                       letterSpacing: getLetterSpacing(rotatingWords[activeWord]),
                       transform: getScaleX(rotatingWords[activeWord]),
@@ -317,9 +418,9 @@ export default function Index() {
                       position: "absolute",
                       left: 0,
                       top: 0,
-                      width: 3000,
+                      width: isMobile ? 600 : 3000,
                       background: "linear-gradient(90deg, #8B5CF6 0%, #EC4899 35%, #F97316 60%, #F97316 100%)",
-                      backgroundSize: "800px 100%",
+                      backgroundSize: isMobile ? "400px 100%" : "800px 100%",
                       backgroundRepeat: "no-repeat",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
@@ -334,7 +435,7 @@ export default function Index() {
 
             <div style={{ maxWidth: 600, opacity: heroVisible ? 1 : 0, transition: "opacity 0.8s ease-out 0.8s" }}>
               <p style={{
-                fontSize: 20,
+                fontSize: isMobile ? 17 : 20,
                 color: "#1e293b",
                 lineHeight: 1.8,
                 marginBottom: "2rem",
@@ -348,12 +449,12 @@ export default function Index() {
                 className="btn-hover"
                 onClick={scrollToContact}
                 style={{
-                  padding: "1rem 2.5rem",
+                  padding: isMobile ? "0.875rem 2rem" : "1rem 2.5rem",
                   background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                   color: "white",
                   border: "none",
                   borderRadius: 50,
-                  fontSize: 16,
+                  fontSize: isMobile ? 14 : 16,
                   fontWeight: 600,
                   cursor: "pointer",
                   boxShadow: "0 10px 30px rgba(102, 126, 234, 0.4)",
@@ -371,11 +472,11 @@ export default function Index() {
       </section>
 
       {/* WORKS */}
-      <section id="works" style={{ backgroundColor: "#F5F1D3", padding: "6rem 0" }}>
+      <section id="works" style={{ backgroundColor: "#F5F1D3", padding: isMobile ? "3rem 0" : "6rem 0" }}>
         <AnimatedSection>
           <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem" }}>
             <h2 style={{
-              fontSize: 56,
+              fontSize: sectionTitleSize,
               letterSpacing: "-0.08em",
               fontFamily: "'Playfair Display', serif",
               textTransform: "uppercase",
@@ -390,7 +491,7 @@ export default function Index() {
             {["Brand Identity", "Web and App Design", "Photography"].map((category) => (
               <div key={category} style={{ marginBottom: "4rem" }}>
                 <h3 style={{
-                  fontSize: 22,
+                  fontSize: isMobile ? 18 : 22,
                   fontFamily: "'EB Garamond', serif",
                   fontWeight: 500,
                   color: "#1e293b",
@@ -399,7 +500,7 @@ export default function Index() {
                 }}>
                   {category === "Brand Identity" ? "Branding and Graphic Design" : category}
                 </h3>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "2rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: gridCols, gap: isMobile ? "1rem" : "2rem" }}>
                   {projects.filter((p) => p.category === category).map((project, index) => (
                     <button
                       key={index}
@@ -457,13 +558,13 @@ export default function Index() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            padding: "2rem",
+            padding: isMobile ? "1rem" : "2rem",
             cursor: "pointer",
             animation: "fadeIn 0.3s ease",
             outline: "none",
           }}
         >
-          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 1200, maxHeight: "90vh", cursor: "default", position: "relative" }}>
+          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 1200, maxHeight: "90vh", cursor: "default", position: "relative", width: "100%" }}>
             <button
               onClick={() => setSelectedProject(null)}
               aria-label="Sulje kuvan esikatselu"
@@ -492,22 +593,23 @@ export default function Index() {
       )}
 
       {/* ABOUT */}
-      <section id="about" style={{ maxWidth: 1280, margin: "0 auto", padding: "6rem 1.5rem" }}>
+      <section id="about" style={{ maxWidth: 1280, margin: "0 auto", padding: isMobile ? "3rem 1rem" : "6rem 1.5rem" }}>
         <AnimatedSection>
           <div style={{
             backgroundColor: "white",
             borderRadius: "1.5rem",
-            padding: "3rem",
+            padding: isMobile ? "1.5rem" : "3rem",
             boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
             border: "1px solid #f1f5f9",
             display: "flex",
-            gap: "3rem",
-            alignItems: "stretch",
+            flexDirection: isMobile ? "column-reverse" : "row",
+            gap: isMobile ? "1.5rem" : "3rem",
+            alignItems: isMobile ? "center" : "stretch",
           }}>
-            {/* Tekstipalsta vasemmalla */}
+            {/* Tekstipalsta */}
             <div style={{ flex: 1 }}>
               <h2 style={{
-                fontSize: 56,
+                fontSize: sectionTitleSize,
                 letterSpacing: "-0.08em",
                 fontFamily: "'Playfair Display', serif",
                 textTransform: "uppercase",
@@ -517,23 +619,24 @@ export default function Index() {
               }}>
                 About Me
               </h2>
-              <p style={{ color: "#1e293b", marginBottom: "1.5rem", fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
+              <p style={{ color: "#1e293b", marginBottom: "1.5rem", fontSize: isMobile ? 16 : 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
                 Olen iloinen ja utelias esteetikko ja kiinnostunut siitä, miten visuaalisuus vaikuttaa meihin ja ympäristöömme. Olen opiskellut visuaalista viestintää ja kuvan kenttää monelta kantilta, sekä sen toteuttamisen että vaikuttamisen keinoja. Kuvallisten välineiden antamat kokemukset ja elämykset ovat ajassamme olennaisia. Arjessamme läsnäoleva design ei ole erillään siitä vaan muokkaa tapaamme suhtautua käyttämiimme palveluihin ja todellisuuteeen, missä elämme. Siksi saumattoman ja kauniin käyttö- ja palvelukokemuksen suunnittelu on hyvin palkitseva kokemus!
               </p>
-              <p style={{ color: "#1e293b", margin: 0, fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
+              <p style={{ color: "#1e293b", margin: 0, fontSize: isMobile ? 16 : 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
                 Teknisen ja tuottavan työni ulkopuolella nautin kauneudesta ja hitaudesta vanhan hirsitalon remontoimisella ja maalaamalla koloristisia abstrakteja maalauksia.
               </p>
             </div>
-            {/* Kuva oikealla */}
-            <div style={{ flex: "0 0 320px" }}>
+            {/* Kuva */}
+            <div style={{ flex: isMobile ? "none" : "0 0 320px", width: isMobile ? "100%" : "auto", maxWidth: isMobile ? 280 : "none" }}>
               <img
                 src={omakuva}
                 alt="Profiilikuva"
                 style={{
                   width: "100%",
-                  height: "100%",
+                  height: isMobile ? "auto" : "100%",
                   objectFit: "cover",
                   borderRadius: "1rem",
+                  aspectRatio: isMobile ? "3/4" : undefined,
                 }}
               />
             </div>
@@ -542,10 +645,10 @@ export default function Index() {
       </section>
 
       {/* SKILLS */}
-      <section id="skills" style={{ maxWidth: 1280, margin: "0 auto", padding: "6rem 1.5rem" }}>
+      <section id="skills" style={{ maxWidth: 1280, margin: "0 auto", padding: isMobile ? "3rem 1rem" : "6rem 1.5rem" }}>
         <AnimatedSection>
           <h2 style={{
-            fontSize: 56,
+            fontSize: sectionTitleSize,
             letterSpacing: "-0.08em",
             fontFamily: "'Playfair Display', serif",
             textTransform: "uppercase",
@@ -556,11 +659,11 @@ export default function Index() {
           }}>
             Skillset
           </h2>
-          <p style={{ color: "#1e293b", textAlign: "center", marginBottom: "4rem", fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
+          <p style={{ color: "#1e293b", textAlign: "center", marginBottom: isMobile ? "2rem" : "4rem", fontSize: isMobile ? 16 : 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
             Tools and expertise I bring to every project
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.5rem", maxWidth: "640px", margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: skillGridCols, gap: "1.5rem", maxWidth: "640px", margin: "0 auto" }}>
             {skills.map((skill, index) => {
               const Icon = skill.icon;
               return (
@@ -570,21 +673,21 @@ export default function Index() {
                   style={{
                     background: "white",
                     borderRadius: "1rem",
-                    padding: "2rem 1.5rem",
+                    padding: isMobile ? "1.5rem 1rem" : "2rem 1.5rem",
                     boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.08)",
                     border: "1px solid #f1f5f9",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: "1rem",
+                    gap: "0.75rem",
                     transition: "all 0.3s",
-                    minHeight: 160,
+                    minHeight: isMobile ? 120 : 160,
                     cursor: "default",
                   }}
                 >
                   <div style={{
-                    width: "3rem",
-                    height: "3rem",
+                    width: isMobile ? "2.5rem" : "3rem",
+                    height: isMobile ? "2.5rem" : "3rem",
                     borderRadius: "0.75rem",
                     background: "linear-gradient(135deg, #4f46e5, #9333ea)",
                     display: "flex",
@@ -592,13 +695,13 @@ export default function Index() {
                     justifyContent: "center",
                     boxShadow: "0 8px 16px -4px rgba(79, 70, 229, 0.3)",
                   }}>
-                    <Icon style={{ width: "1.75rem", height: "1.75rem", color: "white" }} />
+                    <Icon style={{ width: isMobile ? "1.25rem" : "1.75rem", height: isMobile ? "1.25rem" : "1.75rem", color: "white" }} />
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "1rem", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.25, margin: "0 0 0.5rem 0", fontFamily: "'Playfair Display', serif" }}>
+                    <h3 style={{ fontSize: isMobile ? "0.875rem" : "1rem", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.25, margin: "0 0 0.5rem 0", fontFamily: "'Playfair Display', serif" }}>
                       {skill.name}
                     </h3>
-                    <p style={{ fontSize: "0.875rem", color: "#64748b", margin: 0, lineHeight: 1.4 }}>
+                    <p style={{ fontSize: isMobile ? "0.75rem" : "0.875rem", color: "#64748b", margin: 0, lineHeight: 1.4 }}>
                       {skill.description}
                     </p>
                   </div>
@@ -610,11 +713,11 @@ export default function Index() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" style={{ backgroundColor: "#F5F1D3", padding: "8rem 0" }}>
+      <section id="contact" style={{ backgroundColor: "#F5F1D3", padding: isMobile ? "4rem 0" : "8rem 0" }}>
         <AnimatedSection>
           <div style={{ maxWidth: 896, margin: "0 auto", padding: "0 1.5rem", textAlign: "center" }}>
             <h2 style={{
-              fontSize: 56,
+              fontSize: sectionTitleSize,
               letterSpacing: "-0.08em",
               fontFamily: "'Playfair Display', serif",
               textTransform: "uppercase",
@@ -627,11 +730,11 @@ export default function Index() {
             }}>
               Let's Connect
             </h2>
-            <p style={{ color: "#1e293b", marginBottom: "3rem", fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
+            <p style={{ color: "#1e293b", marginBottom: "3rem", fontSize: isMobile ? 16 : 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
               Etsin innolla paikkaa, jossa pääsen kasvamaan osana ammattitaitoista työyhteisöä. Arvostan hyvää porukkahenkeä ja mahdollisuutta oppia kokeneemmilta kollegoilta – uskon, että parhaat digitaaliset palvelut syntyvät aina tiiviinä yhteistyönä. Jos etsit tyyppiä, joka yhdistää design-silmän ja uteliaisuuden uusiin teknologioihin, ota yhteyttä!
             </p>
 
-            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: "1.5rem", flexWrap: "wrap", marginBottom: "3rem" }}>
+            <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "center", justifyContent: "center", gap: "1.5rem", flexWrap: "wrap", marginBottom: "3rem" }}>
               <a
                 href="mailto:info@karoliinak.com"
                 className="btn-hover"
@@ -646,6 +749,8 @@ export default function Index() {
                   border: "1px solid #e2e8f0",
                   textDecoration: "none",
                   transition: "transform 0.2s",
+                  width: isMobile ? "100%" : "auto",
+                  justifyContent: "center",
                 }}
               >
                 <Mail style={{ width: "1.25rem", height: "1.25rem", color: "#4f46e5" }} />
@@ -668,6 +773,8 @@ export default function Index() {
                   boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
                   textDecoration: "none",
                   transition: "transform 0.2s",
+                  width: isMobile ? "100%" : "auto",
+                  justifyContent: "center",
                 }}
               >
                 <Linkedin style={{ width: "1.25rem", height: "1.25rem" }} />
@@ -679,9 +786,9 @@ export default function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ backgroundColor: "#F5F1D3", color: "#475569", padding: "3rem 0", borderTop: "1px solid rgba(226, 232, 240, 0.5)" }}>
+      <footer style={{ backgroundColor: "#F5F1D3", color: "#475569", padding: isMobile ? "2rem 0" : "3rem 0", borderTop: "1px solid rgba(226, 232, 240, 0.5)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem", textAlign: "center" }}>
-          <p style={{ color: "#1e293b", margin: 0, fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
+          <p style={{ color: "#1e293b", margin: 0, fontSize: isMobile ? 15 : 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
             © 2026 Karo-Liina Kähkölä. Crafted with passion and precision.
           </p>
         </div>
