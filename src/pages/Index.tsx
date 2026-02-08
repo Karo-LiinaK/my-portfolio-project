@@ -492,10 +492,10 @@ export default function Index() {
               About Me
             </h2>
             <p style={{ color: "#1e293b", marginBottom: "1.5rem", fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
-              Rakennan visuaalista osaamistani graafisesta suunnittelusta ja valokuvauksesta kohti digitaalista tuotekehitystä. Verkkosivu-, ui- ja ux-suunnittelua olen tehnyt CMS-alustoilla WordPress ja Squarespace.
+              Olen iloinen ja utelias esteetikko ja kiinnostunut siitä, miten visuaalisuus vaikuttaa meihin ja ympäristöömme. Olen opiskellut visuaalista viestintää ja kuvan kenttää monelta kantilta, sekä sen toteuttamisen että vaikuttamisen keinoja. Kuvallisten välineiden antamat kokemukset ja elämykset ovat ajassamme olennaisia. Arjessamme läsnäoleva design ei ole erillään siitä vaan muokkaa tapaamme suhtautua käyttämiimme palveluihin ja todellisuuteeen, missä elämme. Siksi saumattoman ja kauniin käyttö- ja palvelukokemuksen suunnittelu on hyvin palkitseva kokemus!
             </p>
             <p style={{ color: "#1e293b", margin: 0, fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
-              Opiskelen parhaillaan UI/UX-suunnittelua lisää ja harjoittelen frontend-kehitystä AI-avusteisella koodaamisella, jossa työskentelen React-, Tailwind- ja JavaScript-teknologioiden parissa.
+              Teknisen ja tuottavan työni ulkopuolella nautin kauneudesta ja hitaudesta vanhan hirsitalon remontoimisella ja maalaamalla koloristisia abstrakteja maalauksia.
             </p>
           </div>
         </AnimatedSection>
