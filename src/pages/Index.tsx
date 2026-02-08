@@ -627,7 +627,7 @@ export default function Index() {
               Let's Connect
             </h2>
             <p style={{ color: "#1e293b", marginBottom: "3rem", fontSize: 18, fontFamily: "'EB Garamond', serif", fontWeight: 500, lineHeight: "160%", letterSpacing: "0.5px" }}>
-              I'm always open to discussing new projects, creative ideas, or opportunities to bring your vision to life.
+              Olen innolla etsimässä uusia uramahdollisuuksia ja paikkaa, jossa pääsen kasvamaan osana ammattitaitoista kehitystiimiä. Arvostan hyvää tiimihenkeä ja mahdollisuutta oppia kokeneemmilta kollegoilta – uskon, että parhaat digitaaliset tuotteet syntyvät aina yhteistyönä. Jos etsit tyyppiä, joka yhdistää design-silmän ja uteliaisuuden uusiin teknologioihin, jutellaan lisää!
             </p>
 
             <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: "1.5rem", flexWrap: "wrap", marginBottom: "3rem" }}>
