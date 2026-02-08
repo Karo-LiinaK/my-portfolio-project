@@ -400,10 +400,11 @@ export default function Index() {
                 </h3>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "2rem" }}>
                   {projects.filter((p) => p.category === category).map((project, index) => (
-                    <div
+                    <button
                       key={index}
                       className="project-card"
                       onClick={() => setSelectedProject(project)}
+                      aria-label={`Avaa kuva: ${project.alt}`}
                       style={{
                         cursor: "pointer",
                         backgroundColor: "white",
@@ -412,6 +413,9 @@ export default function Index() {
                         boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
                         border: "1px solid #f1f5f9",
                         transition: "all 0.3s ease",
+                        padding: 0,
+                        textAlign: "left",
+                        width: "100%",
                       }}
                     >
                       <div style={{ position: "relative", paddingTop: getAspectRatio(category), overflow: "hidden" }}>
@@ -422,7 +426,7 @@ export default function Index() {
                           style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }}
                         />
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -434,7 +438,13 @@ export default function Index() {
       {/* PROJECT MODAL */}
       {selectedProject && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Kuvan esikatselu: ${selectedProject.alt}`}
           onClick={() => setSelectedProject(null)}
+          onKeyDown={(e) => { if (e.key === "Escape") setSelectedProject(null); }}
+          tabIndex={-1}
+          ref={(el) => el?.focus()}
           style={{
             position: "fixed",
             top: 0,
@@ -449,9 +459,28 @@ export default function Index() {
             padding: "2rem",
             cursor: "pointer",
             animation: "fadeIn 0.3s ease",
+            outline: "none",
           }}
         >
-          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 1200, maxHeight: "90vh", cursor: "default" }}>
+          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 1200, maxHeight: "90vh", cursor: "default", position: "relative" }}>
+            <button
+              onClick={() => setSelectedProject(null)}
+              aria-label="Sulje kuvan esikatselu"
+              style={{
+                position: "absolute",
+                top: "-2.5rem",
+                right: 0,
+                background: "none",
+                border: "none",
+                color: "white",
+                fontSize: "1.5rem",
+                cursor: "pointer",
+                fontFamily: "'Oswald', sans-serif",
+                fontWeight: 600,
+              }}
+            >
+              ✕
+            </button>
             <img
               src={selectedProject.url}
               alt={selectedProject.alt}
