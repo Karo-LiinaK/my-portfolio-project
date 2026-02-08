@@ -65,15 +65,15 @@ export default function Index() {
   }, []);
 
   const projects: Project[] = [
-    { url: graphicdesign3, alt: "Color Palette", category: "Brand Identity" },
-    { url: graphicdesign1, alt: "Kino Tapiola Coupons", category: "Brand Identity" },
-    { url: graphicdesign2, alt: "Noisniemi Layout", category: "Brand Identity" },
-    { url: webpages1, alt: "Web Design 1", category: "Web Design" },
-    { url: webpages2, alt: "Web Design 2", category: "Web Design" },
-    { url: webpages3, alt: "Web Design 3", category: "Web Design" },
-    { url: photography3, alt: "Photography 3", category: "Photography" },
-    { url: photography2, alt: "Photography 2", category: "Photography" },
-    { url: photography1, alt: "Photography 1", category: "Photography" },
+    { url: graphicdesign3, alt: "Graafinen suunnittelu: väripaletti ja brändi-identiteetti", category: "Brand Identity" },
+    { url: graphicdesign1, alt: "Graafinen suunnittelu: Kino Tapiolan kuponki", category: "Brand Identity" },
+    { url: graphicdesign2, alt: "Graafinen suunnittelu: Noisniemen taittopohja", category: "Brand Identity" },
+    { url: webpages1, alt: "Verkkosivusuunnittelu: responsiivinen etusivu", category: "Web Design" },
+    { url: webpages2, alt: "Verkkosivusuunnittelu: yrityksen verkkosivu", category: "Web Design" },
+    { url: webpages3, alt: "Verkkosivusuunnittelu: portfoliosivuston näkymä", category: "Web Design" },
+    { url: photography3, alt: "Valokuvaus: tunnelmallinen maisemakuva", category: "Photography" },
+    { url: photography2, alt: "Valokuvaus: muotokuva luonnonvalossa", category: "Photography" },
+    { url: photography1, alt: "Valokuvaus: kaupunkinäkymä ja arkkitehtuuri", category: "Photography" },
   ];
 
   const skills = [
