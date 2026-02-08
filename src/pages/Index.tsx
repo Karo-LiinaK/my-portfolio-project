@@ -85,14 +85,6 @@ export default function Index() {
     { icon: Wrench, name: "Working with", description: "React, Tailwind, JavaScript" },
   ];
 
-  const skillGradients = [
-    "linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #8B5CF6 100%)",
-    "linear-gradient(135deg, #8B5CF6 0%, #a855f7 50%, #EC4899 100%)",
-    "linear-gradient(135deg, #EC4899 0%, #EC4899 100%)",
-    "linear-gradient(135deg, #937B39 0%, #937B39 100%)",
-    "linear-gradient(135deg, #ff8a80 0%, #ff6b6b 40%, #ff7f6e 70%, #ff9478 100%)",
-    "linear-gradient(135deg, #f97b68 0%, #fb923c 50%, #F97316 100%)",
-  ];
 
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
@@ -546,20 +538,19 @@ export default function Index() {
               return (
                 <div
                   key={skill.name}
-                  className="skill-card animated-gradient"
+                  className="skill-card"
                   style={{
-                    background: skillGradients[index],
-                    backgroundSize: "400% 400%",
+                    background: "white",
                     borderRadius: "1rem",
                     padding: "2rem 1.5rem",
-                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.2)",
+                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.08)",
+                    border: "1px solid #f1f5f9",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     gap: "1rem",
                     transition: "all 0.3s",
                     minHeight: 160,
-                    color: "white",
                     cursor: "default",
                   }}
                 >
@@ -567,20 +558,19 @@ export default function Index() {
                     width: "3rem",
                     height: "3rem",
                     borderRadius: "0.75rem",
-                    backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    backdropFilter: "blur(10px)",
+                    background: "linear-gradient(135deg, #4f46e5, #9333ea)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    boxShadow: "0 8px 16px -4px rgba(0, 0, 0, 0.2)",
+                    boxShadow: "0 8px 16px -4px rgba(79, 70, 229, 0.3)",
                   }}>
                     <Icon style={{ width: "1.75rem", height: "1.75rem", color: "white" }} />
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "1rem", fontWeight: 600, color: "white", lineHeight: 1.25, margin: "0 0 0.5rem 0", fontFamily: "'Playfair Display', serif" }}>
+                    <h3 style={{ fontSize: "1rem", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.25, margin: "0 0 0.5rem 0", fontFamily: "'Playfair Display', serif" }}>
                       {skill.name}
                     </h3>
-                    <p style={{ fontSize: "0.875rem", color: "rgba(255, 255, 255, 0.85)", margin: 0, lineHeight: 1.4 }}>
+                    <p style={{ fontSize: "0.875rem", color: "#64748b", margin: 0, lineHeight: 1.4 }}>
                       {skill.description}
                     </p>
                   </div>
