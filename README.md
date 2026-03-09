@@ -1,10 +1,10 @@
 🎨 Digiportfolio – Visuaalinen suunnittelija & AI-avusteinen kehitys
 Tämä projekti on moderni digiportfolio, jossa yhdistyvät visuaalinen näkemykseni ja kykyni omaksua nopeasti uusia teknologioita. Halusin rakentaa kokonaisuuden, joka osoittaa, miten modernit AI-työkalut ja perinteinen suunnitteluosaaminen kohtaavat.
 
-🚀 Projektin tausta
+🚀 Projektin tausta:
 Olen taustaltani visuaalinen suunnittelija, jolla on vahva palo ratkaista ongelmia – oli kyseessä sitten digitaalinen käyttäjäkokemus tai vanhan hirsitalon kunnostus. Tämän portfolion rakentaminen on ollut matka "Vibe Coding" -maailmaan: olen toiminut prosessin ohjaajana (prompt engineering), varmistaen että lopputulos on laadukas, saavutettava ja teknisesti toimiva.
 
-🛠️ Työkalut & Teknologiat
+🛠️ Työkalut & Teknologiat:
 Projektissa on käytetty modernia AI-avusteista työnkulkua, joka mahdollistaa nopean iteroinnin ja laadukkaan koodin:
 
 Kehitysympäristö: Cursor & Claude (koodin generointi ja logiikka).
