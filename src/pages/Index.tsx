@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Mail, Linkedin, Palette, Sparkles, Code, Camera, Globe, Wrench, Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import graphicdesign1 from "@/assets/graphicdesign-1.jpg";
@@ -15,8 +15,13 @@ import omakuva from "@/assets/omakuva.jpeg";
 function AnimatedSection({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setIsVisible(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
       { threshold: 0.1, rootMargin: "-100px" }
@@ -30,8 +35,8 @@ function AnimatedSection({ children }: { children: React.ReactNode }) {
       ref={ref}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(50px)",
-        transition: "opacity 0.7s ease-out, transform 0.7s ease-out",
+        transform: isVisible ? "translateY(0)" : (prefersReducedMotion ? "translateY(0)" : "translateY(50px)"),
+        transition: prefersReducedMotion ? "none" : "opacity 0.7s ease-out, transform 0.7s ease-out",
       }}
     >
       {children}
@@ -49,14 +54,19 @@ interface Project {
 export default function Index() {
   const [activeWord, setActiveWord] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [headerVisible, setHeaderVisible] = useState(false);
-  const [heroVisible, setHeroVisible] = useState(false);
+  const prevFocusRef = useRef<HTMLElement | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [headerVisible, setHeaderVisible] = useState(prefersReducedMotion);
+  const [heroVisible, setHeroVisible] = useState(prefersReducedMotion);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
 
   const rotatingWords = ["COLOR", "TYPOGRAPHY", "PHOTOGRAPHY", "WEB DESIGN", "VIBE CODING"];
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     setHeaderVisible(true);
     setTimeout(() => setHeroVisible(true), 200);
   }, []);
@@ -93,13 +103,23 @@ export default function Index() {
   ];
 
   const scrollToContact = () => {
+    const target = document.getElementById("contact");
+    if (target) {
+      target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ behavior: "smooth" });
+    }
     setMobileMenuOpen(false);
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleNavClick = (id: string) => {
+    const target = document.getElementById(id);
+    if (target) {
+      target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ behavior: "smooth" });
+    }
     setMobileMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const getLetterSpacing = (word: string) => {
@@ -143,6 +163,22 @@ export default function Index() {
 
   return (
     <div style={{ minHeight: "100vh", fontFamily: "'Oswald', sans-serif", fontSize: "16px", backgroundColor: "#F5F1D3" }}>
+      <a
+        href="#main-content"
+        onClick={(e) => { e.preventDefault(); const main = document.getElementById("main-content"); if (main) { main.focus({ preventScroll: false }); main.scrollIntoView({ behavior: "smooth" }); } }}
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          top: "auto",
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+        }}
+        onFocus={(e) => { e.currentTarget.style.position = "fixed"; e.currentTarget.style.left = "1rem"; e.currentTarget.style.top = "1rem"; e.currentTarget.style.width = "auto"; e.currentTarget.style.height = "auto"; e.currentTarget.style.overflow = "visible"; e.currentTarget.style.zIndex = "9999"; e.currentTarget.style.padding = "0.75rem 1.5rem"; e.currentTarget.style.background = "#4f46e5"; e.currentTarget.style.color = "white"; e.currentTarget.style.borderRadius = "0.5rem"; e.currentTarget.style.fontWeight = "600"; e.currentTarget.style.textDecoration = "none"; }}
+        onBlur={(e) => { e.currentTarget.style.position = "absolute"; e.currentTarget.style.left = "-9999px"; e.currentTarget.style.width = "1px"; e.currentTarget.style.height = "1px"; e.currentTarget.style.overflow = "hidden"; }}
+      >
+        Siirry sisältöön
+      </a>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -184,6 +220,13 @@ export default function Index() {
         .mobile-menu-enter {
           animation: mobileMenuIn 0.25s ease-out forwards;
         }
+        @media (prefers-reduced-motion: reduce) {
+          .animated-gradient { animation: none; }
+          .rotating-word-enter { animation: none; opacity: 1; }
+          .project-card:hover { transform: none; }
+          .skill-card:hover { transform: none; }
+          .mobile-menu-enter { animation: none; opacity: 1; }
+        }
       `}</style>
 
       {/* HEADER */}
@@ -196,11 +239,11 @@ export default function Index() {
           borderBottom: "1px solid rgba(226, 232, 240, 0.3)",
           opacity: headerVisible ? 1 : 0,
           transform: headerVisible ? "translateY(0)" : "translateY(-100px)",
-          transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+          transition: prefersReducedMotion ? "none" : "opacity 0.6s ease-out, transform 0.6s ease-out",
         }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: isMobile ? "1rem" : "1.25rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h6 style={{
+          <span style={{
             fontWeight: "bold",
             background: "linear-gradient(to right, #4f46e5, #9333ea)",
             WebkitBackgroundClip: "text",
@@ -213,7 +256,7 @@ export default function Index() {
             letterSpacing: "-0.5%",
           }}>
             Karo-Liina Kähkölä
-          </h6>
+          </span>
 
           {/* Desktop nav */}
           {!isMobile && (
@@ -223,6 +266,7 @@ export default function Index() {
                   key={item}
                   href={`#${item.toLowerCase()}`}
                   className="nav-link"
+                  lang="en"
                   style={{ color: "#334155", textDecoration: "none", fontWeight: 500, transition: "color 0.3s" }}
                 >
                   {item}
@@ -231,6 +275,7 @@ export default function Index() {
               <button
                 className="btn-hover"
                 onClick={scrollToContact}
+                lang="en"
                 style={{
                   padding: "0.625rem 1.5rem",
                   background: "linear-gradient(to right, #4f46e5, #9333ea)",
@@ -255,6 +300,8 @@ export default function Index() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Sulje valikko" : "Avaa valikko"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-menu"
               style={{
                 background: "none",
                 border: "none",
@@ -271,6 +318,7 @@ export default function Index() {
         {/* Mobile menu dropdown */}
         {isMobile && mobileMenuOpen && (
           <nav
+            id="mobile-nav-menu"
             className="mobile-menu-enter"
             style={{
               backgroundColor: "#F5F1D3",
@@ -285,6 +333,7 @@ export default function Index() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
+                lang="en"
                 onClick={(e) => { e.preventDefault(); handleNavClick(item.toLowerCase()); }}
                 style={{
                   color: "#334155",
@@ -300,6 +349,7 @@ export default function Index() {
             ))}
             <button
               onClick={scrollToContact}
+              lang="en"
               style={{
                 padding: "0.75rem 1.5rem",
                 background: "linear-gradient(to right, #4f46e5, #9333ea)",
@@ -319,6 +369,8 @@ export default function Index() {
         )}
       </header>
 
+      <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
+
       {/* HERO */}
       <section style={{ maxWidth: 1280, margin: "0 auto", padding: isMobile ? "3rem 1rem" : "8rem 1.5rem", overflow: "visible" }}>
         <div style={{ display: "flex", flexDirection: "row", gap: "3rem", alignItems: "flex-start", flexWrap: "wrap", overflow: "visible" }}>
@@ -329,11 +381,25 @@ export default function Index() {
               width: "100%",
               overflow: "visible",
               opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? "translateY(0)" : "translateY(40px)",
-              transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
+              transform: heroVisible ? "translateY(0)" : (prefersReducedMotion ? "translateY(0)" : "translateY(40px)"),
+              transition: prefersReducedMotion ? "none" : "opacity 0.8s ease-out, transform 0.8s ease-out",
             }}
           >
             <div style={{ marginBottom: isMobile ? "1.5rem" : "3rem", overflow: "visible" }}>
+              <h1 style={{
+                position: "absolute",
+                width: "1px",
+                height: "1px",
+                padding: 0,
+                margin: "-1px",
+                overflow: "hidden",
+                clip: "rect(0, 0, 0, 0)",
+                whiteSpace: "nowrap",
+                borderWidth: 0,
+              }}>
+                Karo-Liina Kähkölä — Visual Designer
+              </h1>
+              <div aria-hidden="true">
               <div style={{
                 fontSize: heroMainSize,
                 letterSpacing: "-0.08em",
@@ -432,8 +498,9 @@ export default function Index() {
                 </div>
               </div>
             </div>
+            </div>
 
-            <div style={{ maxWidth: 600, opacity: heroVisible ? 1 : 0, transition: "opacity 0.8s ease-out 0.8s" }}>
+            <div style={{ maxWidth: 600, opacity: heroVisible ? 1 : 0, transition: prefersReducedMotion ? "none" : "opacity 0.8s ease-out 0.8s" }}>
               <p style={{
                 fontSize: isMobile ? 17 : 20,
                 color: "#1e293b",
@@ -505,7 +572,7 @@ export default function Index() {
                     <button
                       key={index}
                       className="project-card"
-                      onClick={() => setSelectedProject(project)}
+                      onClick={() => { prevFocusRef.current = document.activeElement as HTMLElement; setSelectedProject(project); }}
                       aria-label={`Avaa kuva: ${project.alt}`}
                       style={{
                         cursor: "pointer",
@@ -543,10 +610,22 @@ export default function Index() {
           role="dialog"
           aria-modal="true"
           aria-label={`Kuvan esikatselu: ${selectedProject.alt}`}
-          onClick={() => setSelectedProject(null)}
-          onKeyDown={(e) => { if (e.key === "Escape") setSelectedProject(null); }}
+          onClick={() => { setSelectedProject(null); prevFocusRef.current?.focus(); }}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") { setSelectedProject(null); prevFocusRef.current?.focus(); }
+            if (e.key === "Tab" && modalRef.current) {
+              const focusable = modalRef.current.querySelectorAll<HTMLElement>("button, [href], [tabindex]:not([tabindex='-1'])");
+              const first = focusable[0];
+              const last = focusable[focusable.length - 1];
+              if (e.shiftKey) {
+                if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
+              } else {
+                if (document.activeElement === last) { e.preventDefault(); first?.focus(); }
+              }
+            }
+          }}
           tabIndex={-1}
-          ref={(el) => el?.focus()}
+          ref={(el) => { modalRef.current = el; if (el) closeButtonRef.current?.focus(); }}
           style={{
             position: "fixed",
             top: 0,
@@ -566,7 +645,8 @@ export default function Index() {
         >
           <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 1200, maxHeight: "90vh", cursor: "default", position: "relative", width: "100%" }}>
             <button
-              onClick={() => setSelectedProject(null)}
+              ref={closeButtonRef}
+              onClick={() => { setSelectedProject(null); prevFocusRef.current?.focus(); }}
               aria-label="Sulje kuvan esikatselu"
               style={{
                 position: "absolute",
@@ -784,6 +864,8 @@ export default function Index() {
           </div>
         </AnimatedSection>
       </section>
+
+      </main>
 
       {/* FOOTER */}
       <footer style={{ backgroundColor: "#F5F1D3", color: "#475569", padding: isMobile ? "2rem 0" : "3rem 0", borderTop: "1px solid rgba(226, 232, 240, 0.5)" }}>
