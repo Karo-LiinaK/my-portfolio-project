@@ -12,9 +12,10 @@ import photography2 from "@/assets/photography-2.jpg";
 import photography3 from "@/assets/photography-3.jpg";
 import omakuva from "@/assets/omakuva.jpeg";
 import ktMoodboard from "@/assets/KT_moodboard.jpg";
-import ktLogo from "@/assets/timanttileima.png";
 import ktValkokangas from "@/assets/cine2018valkokangas.jpg";
 import ktRaMainos from "@/assets/ra-mainos.jpg";
+import ktLogoWhite from "@/assets/KT-logo_valk.tausta.jpg";
+import ktCinetabloid from "@/assets/cinetabloid.jpg";
 
 function AnimatedSection({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -93,18 +94,19 @@ export default function Index() {
 
   const projects: Project[] = [
     {
-      url: graphicdesign3,
-      alt: "Graafinen suunnittelu: väripaletti ja brändi-identiteetti",
+      url: ktLogoWhite,
+      alt: "Kino Tapiola — Brändi-identiteetti",
       category: "Brand Identity",
       title: "Kino Tapiola — Brändi-identiteetti",
       description: "Espoon Tapiolassa sijaitsevan Art House -elokuvateatteri Kino Tapiolan graafisen ilmeen määrittely ja visuaalisuuden raikastaminen auttoivat laajentamaan kohderyhmää ja lisäämään asiakaskäyntejä. Työhön kuuluivat uudistetut logoversiot, värienkäytön suunnittelu, typografiaperheiden valinta sekä markkinointimateriaalien tuottaminen, joita näkyi mm. Stockmannin valotauluissa sekä Rakkautta ja Anarkiaa -elokuvafestivaalin valkokangasmainoksissa.",
       galleryImages: [
+        { url: ktLogoWhite, alt: "Kino Tapiola pyöreä logo" },
         { url: graphicdesign3, alt: "Kino Tapiola väripaletti" },
-        { url: ktLogo, alt: "Kino Tapiola logo" },
         { url: ktMoodboard, alt: "Kino Tapiola moodboard" },
         { url: graphicdesign1, alt: "Kino Tapiola kupongit" },
         { url: ktValkokangas, alt: "Kino Tapiola valkokangasmainos" },
         { url: ktRaMainos, alt: "Rakkautta ja Anarkiaa -mainos" },
+        { url: ktCinetabloid, alt: "Kino Tapiola tabloidliite" },
       ],
     },
     { url: graphicdesign1, alt: "Graafinen suunnittelu: Kino Tapiolan kuponki", category: "Brand Identity" },
