@@ -12,10 +12,9 @@ import photography2 from "@/assets/photography-2.jpg";
 import photography3 from "@/assets/photography-3.jpg";
 import omakuva from "@/assets/omakuva.jpeg";
 import ktMoodboard from "@/assets/KT_moodboard.jpg";
-import ktLogo from "@/assets/timanttileima.png";
 import ktValkokangas from "@/assets/cine2018valkokangas.jpg";
 import ktRaMainos from "@/assets/ra-mainos.jpg";
-import ktLogoWhite from "@/assets/pyorealogo_white.jpg";
+import ktLogoWhite from "@/assets/KT-logo_valk.tausta.jpg;
 import ktCinetabloid from "@/assets/cinetabloid.jpg";
 
 function AnimatedSection({ children }: { children: React.ReactNode }) {
