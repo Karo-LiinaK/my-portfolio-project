@@ -11,6 +11,10 @@ import photography1 from "@/assets/photography-1.jpg";
 import photography2 from "@/assets/photography-2.jpg";
 import photography3 from "@/assets/photography-3.jpg";
 import omakuva from "@/assets/omakuva.jpeg";
+import ktMoodboard from "@/assets/KT_moodboard.jpg";
+import ktLogo from "@/assets/timanttileima.png";
+import ktValkokangas from "@/assets/cine2018valkokangas.jpg";
+import ktRaMainos from "@/assets/ra-mainos.jpg";
 
 function AnimatedSection({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,11 +53,15 @@ interface Project {
   alt: string;
   category: string;
   objectPosition?: string;
+  title?: string;
+  description?: string;
+  galleryImages?: { url: string; alt: string }[];
 }
 
 export default function Index() {
   const [activeWord, setActiveWord] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [modalImageIndex, setModalImageIndex] = useState(0);
   const prevFocusRef = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -84,7 +92,21 @@ export default function Index() {
   }, [isMobile]);
 
   const projects: Project[] = [
-    { url: graphicdesign3, alt: "Graafinen suunnittelu: väripaletti ja brändi-identiteetti", category: "Brand Identity" },
+    {
+      url: graphicdesign3,
+      alt: "Graafinen suunnittelu: väripaletti ja brändi-identiteetti",
+      category: "Brand Identity",
+      title: "Kino Tapiola — Brändi-identiteetti",
+      description: "Espoon Tapiolassa sijaitsevan Art House -elokuvateatteri Kino Tapiolan graafisen ilmeen määrittely ja visuaalisuuden raikastaminen auttoivat laajentamaan kohderyhmää ja lisäämään asiakaskäyntejä. Työhön kuuluivat uudistetut logoversiot, värienkäytön suunnittelu, typografiaperheiden valinta sekä markkinointimateriaalien tuottaminen, joita näkyi mm. Stockmannin valotauluissa sekä Rakkautta ja Anarkiaa -elokuvafestivaalin valkokangasmainoksissa.",
+      galleryImages: [
+        { url: graphicdesign3, alt: "Kino Tapiola väripaletti" },
+        { url: ktLogo, alt: "Kino Tapiola logo" },
+        { url: ktMoodboard, alt: "Kino Tapiola moodboard" },
+        { url: graphicdesign1, alt: "Kino Tapiola kupongit" },
+        { url: ktValkokangas, alt: "Kino Tapiola valkokangasmainos" },
+        { url: ktRaMainos, alt: "Rakkautta ja Anarkiaa -mainos" },
+      ],
+    },
     { url: graphicdesign1, alt: "Graafinen suunnittelu: Kino Tapiolan kuponki", category: "Brand Identity" },
     { url: graphicdesign2, alt: "Graafinen suunnittelu: Noisniemen taittopohja", category: "Brand Identity" },
     { url: webpages1, alt: "Verkkosivusuunnittelu: responsiivinen etusivu", category: "Web and App Design" },
@@ -572,7 +594,7 @@ export default function Index() {
                     <button
                       key={index}
                       className="project-card"
-                      onClick={() => { prevFocusRef.current = document.activeElement as HTMLElement; setSelectedProject(project); }}
+                      onClick={() => { prevFocusRef.current = document.activeElement as HTMLElement; setModalImageIndex(0); setSelectedProject(project); }}
                       aria-label={`Avaa kuva: ${project.alt}`}
                       style={{
                         cursor: "pointer",
@@ -605,14 +627,20 @@ export default function Index() {
       </section>
 
       {/* PROJECT MODAL */}
-      {selectedProject && (
+      {selectedProject && (() => {
+        const hasGallery = selectedProject.galleryImages && selectedProject.galleryImages.length > 0;
+        const images = hasGallery ? selectedProject.galleryImages! : [{ url: selectedProject.url, alt: selectedProject.alt }];
+        const currentImage = images[modalImageIndex] || images[0];
+        return (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`Kuvan esikatselu: ${selectedProject.alt}`}
-          onClick={() => { setSelectedProject(null); prevFocusRef.current?.focus(); }}
+          aria-label={selectedProject.title ? selectedProject.title : `Kuvan esikatselu: ${selectedProject.alt}`}
+          onClick={() => { setSelectedProject(null); setModalImageIndex(0); prevFocusRef.current?.focus(); }}
           onKeyDown={(e) => {
-            if (e.key === "Escape") { setSelectedProject(null); prevFocusRef.current?.focus(); }
+            if (e.key === "Escape") { setSelectedProject(null); setModalImageIndex(0); prevFocusRef.current?.focus(); }
+            if (e.key === "ArrowRight" && hasGallery) { setModalImageIndex((prev) => (prev + 1) % images.length); }
+            if (e.key === "ArrowLeft" && hasGallery) { setModalImageIndex((prev) => (prev - 1 + images.length) % images.length); }
             if (e.key === "Tab" && modalRef.current) {
               const focusable = modalRef.current.querySelectorAll<HTMLElement>("button, [href], [tabindex]:not([tabindex='-1'])");
               const first = focusable[0];
@@ -632,45 +660,129 @@ export default function Index() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            backgroundColor: "rgba(0, 0, 0, 0.85)",
             zIndex: 100,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             padding: isMobile ? "1rem" : "2rem",
             cursor: "pointer",
-            animation: "fadeIn 0.3s ease",
             outline: "none",
+            overflowY: "auto",
           }}
         >
-          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: 1200, maxHeight: "90vh", cursor: "default", position: "relative", width: "100%" }}>
+          <div onClick={(e) => e.stopPropagation()} style={{
+            maxWidth: hasGallery ? 1100 : 1200,
+            maxHeight: "92vh",
+            cursor: "default",
+            position: "relative",
+            width: "100%",
+            display: "flex",
+            flexDirection: hasGallery && !isMobile ? "row" : "column",
+            gap: hasGallery ? "2rem" : 0,
+            backgroundColor: hasGallery ? "#1a1a1a" : "transparent",
+            borderRadius: hasGallery ? "1.5rem" : "1rem",
+            padding: hasGallery ? (isMobile ? "1rem" : "2rem") : 0,
+            overflowY: hasGallery ? "auto" : "visible",
+          }}>
             <button
               ref={closeButtonRef}
-              onClick={() => { setSelectedProject(null); prevFocusRef.current?.focus(); }}
-              aria-label="Sulje kuvan esikatselu"
+              onClick={() => { setSelectedProject(null); setModalImageIndex(0); prevFocusRef.current?.focus(); }}
+              aria-label="Sulje esikatselu"
               style={{
                 position: "absolute",
-                top: "-2.5rem",
-                right: 0,
-                background: "none",
+                top: hasGallery ? "1rem" : "-2.5rem",
+                right: hasGallery ? "1rem" : 0,
+                background: hasGallery ? "rgba(255,255,255,0.1)" : "none",
                 border: "none",
                 color: "white",
-                fontSize: "1.5rem",
+                fontSize: "1.25rem",
                 cursor: "pointer",
                 fontFamily: "'Oswald', sans-serif",
                 fontWeight: 600,
+                zIndex: 10,
+                width: "2.5rem",
+                height: "2.5rem",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               ✕
             </button>
-            <img
-              src={selectedProject.url}
-              alt={selectedProject.alt}
-              style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "1rem" }}
-            />
+
+            {/* Image section */}
+            <div style={{ flex: hasGallery && !isMobile ? "0 0 55%" : "none", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <img
+                src={currentImage.url}
+                alt={currentImage.alt}
+                style={{
+                  width: "100%",
+                  maxHeight: hasGallery ? (isMobile ? "300px" : "450px") : "80vh",
+                  objectFit: "contain",
+                  borderRadius: "0.75rem",
+                  backgroundColor: hasGallery ? "#111" : "transparent",
+                }}
+              />
+              {/* Thumbnails */}
+              {hasGallery && (
+                <div style={{ display: "flex", gap: "0.5rem", overflowX: "auto", paddingBottom: "0.25rem" }}>
+                  {images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setModalImageIndex(idx)}
+                      aria-label={`Näytä kuva ${idx + 1}: ${img.alt}`}
+                      style={{
+                        flexShrink: 0,
+                        width: isMobile ? 56 : 72,
+                        height: isMobile ? 56 : 72,
+                        borderRadius: "0.5rem",
+                        overflow: "hidden",
+                        border: idx === modalImageIndex ? "2px solid #9333ea" : "2px solid transparent",
+                        cursor: "pointer",
+                        padding: 0,
+                        background: "#222",
+                        opacity: idx === modalImageIndex ? 1 : 0.6,
+                        transition: "opacity 0.2s, border-color 0.2s",
+                      }}
+                    >
+                      <img src={img.url} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Text section */}
+            {hasGallery && selectedProject.title && (
+              <div style={{ flex: 1, color: "white", display: "flex", flexDirection: "column", justifyContent: "flex-start", paddingTop: isMobile ? 0 : "0.5rem" }}>
+                <h3 style={{
+                  fontSize: isMobile ? 22 : 28,
+                  fontFamily: "'Playfair Display', serif",
+                  fontWeight: 700,
+                  margin: "0 0 1rem 0",
+                  color: "white",
+                  paddingRight: "2.5rem",
+                }}>
+                  {selectedProject.title}
+                </h3>
+                <p style={{
+                  fontSize: isMobile ? 15 : 17,
+                  fontFamily: "'EB Garamond', serif",
+                  fontWeight: 400,
+                  lineHeight: 1.7,
+                  color: "rgba(255,255,255,0.85)",
+                  margin: 0,
+                }}>
+                  {selectedProject.description}
+                </p>
+              </div>
+            )}
           </div>
         </div>
-      )}
+        );
+      })()}
 
       {/* ABOUT */}
       <section id="about" style={{ maxWidth: 1280, margin: "0 auto", padding: isMobile ? "3rem 1rem" : "6rem 1.5rem" }}>
