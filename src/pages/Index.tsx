@@ -14,7 +14,7 @@ import omakuva from "@/assets/omakuva.jpeg";
 import ktMoodboard from "@/assets/KT_moodboard.jpg";
 import ktValkokangas from "@/assets/cine2018valkokangas.jpg";
 import ktRaMainos from "@/assets/ra-mainos.jpg";
-import ktLogoWhite from "@/assets/KT-logo_valk.tausta.jpg;
+import ktLogoWhite from "@/assets/KT-logo_valk.tausta.jpg";
 import ktCinetabloid from "@/assets/cinetabloid.jpg";
 
 function AnimatedSection({ children }: { children: React.ReactNode }) {
