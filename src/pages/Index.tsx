@@ -98,7 +98,7 @@ export default function Index() {
       alt: "Kino Tapiola — Brändi-identiteetti",
       category: "Brand Identity",
       title: "Kino Tapiola — Brändi-identiteetti",
-      description: "Espoon Tapiolassa sijaitsevan Art House -elokuvateatteri Kino Tapiolan graafisen ilmeen määrittely ja visuaalisuuden raikastaminen auttoivat laajentamaan kohderyhmää ja lisäämään asiakaskäyntejä. Työhön kuuluivat uudistetut logoversiot, värienkäytön suunnittelu, typografiaperheiden valinta sekä markkinointimateriaalien tuottaminen, joita näkyi mm. Stockmannin valotauluissa sekä Rakkautta ja Anarkiaa -elokuvafestivaalin valkokangasmainoksissa.",
+      description: "Espoon Tapiolassa sijaitsevan Art House -elokuvateatteri Kino Tapiolan graafisen ilmeen määrittely ja visuaalisuuden raikastaminen auttoivat laajentamaan kohderyhmää ja lisäämään asiakaskäyntejä. Työhön kuuluivat uudistetut logoversiot, värienkäytön suunnittelu, fonttiperheiden valinta sekä markkinointimateriaalien tuottaminen, joita näkyi mm. Stockmannin valotauluissa sekä Rakkautta ja Anarkiaa -elokuvafestivaalin valkokangasmainoksissa.",
       galleryImages: [
         { url: ktLogoWhite, alt: "Kino Tapiola pyöreä logo" },
         { url: graphicdesign3, alt: "Kino Tapiola väripaletti" },
