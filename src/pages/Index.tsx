@@ -219,7 +219,7 @@ export default function Index() {
   const heroRotatingSize = isMobile ? 36 : 76;
   const sectionTitleSize = isMobile ? 36 : 56;
   const gridCols = isMobile ? "repeat(1, 1fr)" : "repeat(3, 1fr)";
-  const skillGridCols = isMobile ? "repeat(2, 1fr)" : "repeat(2, 1fr)";
+  const skillGridCols = isMobile ? "repeat(1, 1fr)" : "repeat(3, 1fr)";
 
   return (
     <div style={{ minHeight: "100vh", fontFamily: "'Oswald', sans-serif", fontSize: "16px", backgroundColor: "#F5F1D3" }}>
@@ -893,7 +893,7 @@ export default function Index() {
             Tools and expertise I bring to every project
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: skillGridCols, gap: "1.5rem", maxWidth: "640px", margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: skillGridCols, gap: "1.5rem", maxWidth: "960px", margin: "0 auto" }}>
             {skills.map((skill, index) => {
               const Icon = skill.icon;
               return (
@@ -973,18 +973,18 @@ export default function Index() {
                   alignItems: "center",
                   gap: "0.75rem",
                   padding: "1rem 2rem",
-                  backgroundColor: "white",
+                  background: "linear-gradient(to right, #4f46e5, #9333ea)",
+                  color: "white",
                   borderRadius: 9999,
                   boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
-                  border: "1px solid #e2e8f0",
                   textDecoration: "none",
                   transition: "transform 0.2s",
                   width: isMobile ? "100%" : "auto",
                   justifyContent: "center",
                 }}
               >
-                <Mail style={{ width: "1.25rem", height: "1.25rem", color: "#4f46e5" }} />
-                <span style={{ fontWeight: 600, color: "#334155", fontFamily: "'Oswald', sans-serif" }}>info@karoliinak.com</span>
+                <Mail style={{ width: "1.25rem", height: "1.25rem" }} />
+                <span style={{ fontWeight: 600, fontFamily: "'Oswald', sans-serif" }}>info@karoliinak.com</span>
               </a>
 
               <a
