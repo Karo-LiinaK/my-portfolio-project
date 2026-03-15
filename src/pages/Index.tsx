@@ -16,6 +16,9 @@ import ktValkokangas from "@/assets/cine2018valkokangas.jpg";
 import ktRaMainos from "@/assets/ra-mainos.jpg";
 import ktLogoWhite from "@/assets/KT-logo_valk.tausta.jpg";
 import ktCinetabloid from "@/assets/cinetabloid.jpg";
+import noisLogo from "@/assets/nois-logo.jpg";
+import noisEsite from "@/assets/nois-esite.jpg";
+import noisWebsite from "@/assets/nois-website.jpg";
 
 function AnimatedSection({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -110,7 +113,18 @@ export default function Index() {
       ],
     },
     { url: graphicdesign1, alt: "Graafinen suunnittelu: Kino Tapiolan kuponki", category: "Brand Identity" },
-    { url: graphicdesign2, alt: "Graafinen suunnittelu: Noisniemen taittopohja", category: "Brand Identity" },
+    {
+      url: graphicdesign2,
+      alt: "Noisniemi — Brändi-identiteetti ja verkkosivut",
+      category: "Brand Identity",
+      title: "Noisniemi — Brändi-identiteetti ja verkkosivut",
+      description: "Lasten- ja nuortenkoti Noisniemen brändäys ja visuaalisen ilmeen suunnittelu sisälsi logon, värien ja typografiavalintojen määrittelyn, verkkosivut WordPressillä sekä esitteen teon. Design thinking -prosessi sisälsi lastensuojelualalla toimivan suljettuun markkinaan perehtymistä. Turvallisuutta ja luottamuksellisuutta henkivän ilmeen luomisella ja uusilla sivuilla onnistuimme tavoittamaan kaupunkien sosiaalitoimen huostaanotettujen lasten sijoittamisesta päättävän henkilöstön niin, että lastenkodin asukaspaikat täyttyivät kahdessa kuukaudessa.",
+      galleryImages: [
+        { url: noisLogo, alt: "Noisniemi logo" },
+        { url: noisEsite, alt: "Noisniemi esite" },
+        { url: noisWebsite, alt: "Noisniemi verkkosivut" },
+      ],
+    },
     { url: webpages1, alt: "Verkkosivusuunnittelu: responsiivinen etusivu", category: "Web and App Design" },
     { url: webpages2, alt: "Verkkosivusuunnittelu: yrityksen verkkosivu", category: "Web and App Design" },
     { url: webpages3, alt: "Verkkosivusuunnittelu: portfoliosivuston näkymä", category: "Web and App Design", objectPosition: "top" },
