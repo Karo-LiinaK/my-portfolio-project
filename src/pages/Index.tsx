@@ -19,6 +19,14 @@ import ktCinetabloid from "@/assets/cinetabloid.jpg";
 import noisLogo from "@/assets/nois-logo-2.jpg";
 import noisEsite from "@/assets/nois-esite.jpg";
 import noisWebsite from "@/assets/nois-website.jpg";
+import orgCard from "@/assets/organigraphic-card.jpg";
+import orgLogo from "@/assets/organigraphic.jpg";
+import soosipojatLogo from "@/assets/soosipojat-logo.jpg";
+import soosiBisnescard from "@/assets/soosi-bisnescard.jpg";
+import theneliologo from "@/assets/theneliologo.jpg";
+import luumuviini1 from "@/assets/luumuviini1.jpg";
+import luumuviini2 from "@/assets/luumuviini2.jpg";
+import goottitaivas from "@/assets/goottitaivas.jpg";
 
 function AnimatedSection({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -124,7 +132,22 @@ export default function Index() {
         { url: noisWebsite, alt: "Noisniemi verkkosivut" },
       ],
     },
-    { url: graphicdesign1, alt: "Graafinen suunnittelu: Kino Tapiolan kuponki", category: "Brand Identity" },
+    {
+      url: orgCard,
+      alt: "Graafisia tilaustöitä pienyrityksille",
+      category: "Brand Identity",
+      title: "Graafisia tilaustöitä",
+      description: "Olen myös tehnyt erilaisia graafisia tilaustöitä, logoja, taittoja ja markkinointimateriaaleja pienyritysten tarpeisiin.",
+      galleryImages: [
+        { url: orgLogo, alt: "OrganigraphiC logo" },
+        { url: soosipojatLogo, alt: "Soosipojat logo" },
+        { url: soosiBisnescard, alt: "Soosipojat käyntikortti" },
+        { url: theneliologo, alt: "Thenelio logo" },
+        { url: luumuviini1, alt: "Luumuviini — kansikuva" },
+        { url: luumuviini2, alt: "Luumuviini — sisäsivu" },
+        { url: goottitaivas, alt: "Musta Taivas — kattojärjestö" },
+      ],
+    },
     { url: webpages1, alt: "Verkkosivusuunnittelu: responsiivinen etusivu", category: "Web and App Design" },
     { url: webpages2, alt: "Verkkosivusuunnittelu: yrityksen verkkosivu", category: "Web and App Design" },
     { url: webpages3, alt: "Verkkosivusuunnittelu: portfoliosivuston näkymä", category: "Web and App Design", objectPosition: "top" },
