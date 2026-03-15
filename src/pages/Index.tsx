@@ -571,7 +571,7 @@ export default function Index() {
                 fontWeight: 500,
                 letterSpacing: "0.5px",
               }}>
-                Rakennan visuaalista osaamistani graafisesta suunnittelusta ja valokuvauksesta kohti digitaalista tuotekehitystä. Verkkosivu-, ui- ja ux-suunnittelua olen tehnyt CMS-alustoilla WordPress ja Squarespace. Opiskelen parhaillaan UI/UX-suunnittelua lisää ja harjoittelen frontend-kehitystä AI-avusteisella koodaamisella, jossa työskentelen React-, Tailwind- ja JavaScript-teknologioiden parissa.
+                Matkani graafisesta suunnittelusta ja valokuvauksesta on vienyt minut digitaalisen tuotekehityksen pariin. Intohimonani on UI/UX-suunnittelu, jota toteutan modernilla otteella: hyödynnän Figman tekoälyominaisuuksia visuaalisessa työssäni ja kehitän frontend-ratkaisuja hyödyntäen Claudea, Cursoria ja Lovablea.{"\n\n"}Hallitsen HTML:n, CSS:n ja Tailwindin perusteet, ja syvennän osaamistani jatkuvasti Reactin ja TypeScriptin parissa. Versionhallinnassa luotan GitHubiin ja koodin laadunvarmistuksessa hyödynnän CodeRabbitia.{"\n\n"}Uskon, että parhaat digitaaliset tuotteet syntyvät empatiasta. Ihmisläheinen työkokemukseni auttaa minua luomaan saavutettavia ratkaisuja, jotka oikeasti palvelevat käyttäjäänsä. Tekoäly on kiinteä osa työnkulkuani – se antaa minulle mahdollisuuden keskittyä enemmän luovuuteen, käytettävyyteen ja ratkaisujen hiomiseen.
               </p>
               <button
                 className="btn-hover"
