@@ -157,10 +157,9 @@ export default function Index() {
   ];
 
   const skills = [
-    { icon: Palette, name: "Visual Design", description: "Photoshop, Canva, Procreate" },
-    { icon: Camera, name: "Photography", description: "Visual storytelling" },
-    { icon: Globe, name: "Web and App Design", description: "WordPress, Squarespace" },
-    { icon: Sparkles, name: "AI-Assisted Dev", description: "Cursor, Claude, Lovable, GitHub" },
+    { icon: Palette, name: "UI/UX & Web Design", description: "Figma, Squarespace, Photoshop, Canva" },
+    { icon: Camera, name: "Visual Production", description: "Photography, AI image generation" },
+    { icon: Sparkles, name: "AI-Assisted Dev", description: "Claude, Lovable, Cursor, GitHub" },
   ];
 
   const scrollToContact = () => {
@@ -1010,6 +1009,30 @@ export default function Index() {
               >
                 <Linkedin style={{ width: "1.25rem", height: "1.25rem" }} />
                 <span style={{ fontWeight: 600, fontFamily: "'Oswald', sans-serif" }}>LinkedIn</span>
+              </a>
+
+              <a
+                href="https://github.com/Karo-LiinaK"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-hover"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.75rem",
+                  padding: "1rem 2rem",
+                  background: "linear-gradient(to right, #4f46e5, #9333ea)",
+                  color: "white",
+                  borderRadius: 9999,
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
+                  textDecoration: "none",
+                  transition: "transform 0.2s",
+                  width: isMobile ? "100%" : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <Code style={{ width: "1.25rem", height: "1.25rem" }} />
+                <span style={{ fontWeight: 600, fontFamily: "'Oswald', sans-serif" }}>GitHub</span>
               </a>
             </div>
           </div>
