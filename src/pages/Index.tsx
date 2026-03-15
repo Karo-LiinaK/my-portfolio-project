@@ -112,9 +112,8 @@ export default function Index() {
         { url: ktCinetabloid, alt: "Kino Tapiola tabloidliite" },
       ],
     },
-    { url: graphicdesign1, alt: "Graafinen suunnittelu: Kino Tapiolan kuponki", category: "Brand Identity" },
     {
-      url: graphicdesign2,
+      url: noisLogo,
       alt: "Noisniemi — Brändi-identiteetti ja verkkosivut",
       category: "Brand Identity",
       title: "Noisniemi — Brändi-identiteetti ja verkkosivut",
@@ -125,6 +124,7 @@ export default function Index() {
         { url: noisWebsite, alt: "Noisniemi verkkosivut" },
       ],
     },
+    { url: graphicdesign1, alt: "Graafinen suunnittelu: Kino Tapiolan kuponki", category: "Brand Identity" },
     { url: webpages1, alt: "Verkkosivusuunnittelu: responsiivinen etusivu", category: "Web and App Design" },
     { url: webpages2, alt: "Verkkosivusuunnittelu: yrityksen verkkosivu", category: "Web and App Design" },
     { url: webpages3, alt: "Verkkosivusuunnittelu: portfoliosivuston näkymä", category: "Web and App Design", objectPosition: "top" },
