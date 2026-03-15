@@ -16,7 +16,7 @@ import ktValkokangas from "@/assets/cine2018valkokangas.jpg";
 import ktRaMainos from "@/assets/ra-mainos.jpg";
 import ktLogoWhite from "@/assets/KT-logo_valk.tausta.jpg";
 import ktCinetabloid from "@/assets/cinetabloid.jpg";
-import noisLogo from "@/assets/nois-logo.jpg";
+import noisLogo from "@/assets/nois-logo-2.jpg";
 import noisEsite from "@/assets/nois-esite.jpg";
 import noisWebsite from "@/assets/nois-website.jpg";
 
