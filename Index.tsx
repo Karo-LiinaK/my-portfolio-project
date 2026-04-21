@@ -7,9 +7,29 @@ import graphicdesign3 from "@/assets/graphicdesign-3.jpg";
 import webpages1 from "@/assets/webpages-1.jpg";
 import webpages2 from "@/assets/webpages-2.jpg";
 import webpages3 from "@/assets/webpages-3.jpg";
-import photography1 from "@/assets/photography-1.jpg";
-import photography2 from "@/assets/photography-2.jpg";
-import photography3 from "@/assets/photography-3.jpg";
+import photoBizEspoocine from "@/assets/photo-biz-espoocine.jpg";
+import photoBizPainthings from "@/assets/photo-biz-painthings.jpg";
+import photoBizEhdokas1 from "@/assets/photo-biz-ehdokas1.jpg";
+import photoBizEhdokas2 from "@/assets/photo-biz-ehdokas2.jpg";
+import photoBizJuniorcine from "@/assets/photo-biz-juniorcine.jpg";
+import photoHidden from "@/assets/photo-hidden.jpg";
+import photoAngel from "@/assets/photo-angel.jpg";
+import photoKatariina from "@/assets/photo-katariina.jpg";
+import photoLadylike from "@/assets/photo-ladylike.jpg";
+import photoPariskunta from "@/assets/photo-pariskunta.jpg";
+import photoFirstgig from "@/assets/photo-firstgig.jpg";
+import photoMaternityBelly from "@/assets/photo-maternity-belly.jpg";
+import photoBabyFlower from "@/assets/photo-baby-flower.jpg";
+import photoMaternityMirror from "@/assets/photo-maternity-mirror.jpg";
+import photoGirlCandy from "@/assets/photo-girl-candy.jpg";
+import photoGirlCandyBw from "@/assets/photo-girl-candy-bw.jpg";
+import photoNewbornFamily from "@/assets/photo-newborn-family.jpg";
+import photoHourglass from "@/assets/photo-hourglass.jpg";
+import photoFlowersWoman from "@/assets/photo-flowers-woman.jpg";
+import photoFamilyForest from "@/assets/photo-family-forest.jpg";
+import photoNewborn from "@/assets/photo-newborn.jpg";
+import photoYoHermanni from "@/assets/photo-yo-hermanni.jpg";
+import photoYoGirl from "@/assets/photo-yo-girl.jpg";
 import omakuva from "@/assets/omakuva.jpeg";
 import ktMoodboard from "@/assets/KT_moodboard.jpg";
 import ktLogo from "@/assets/timanttileima.png";
@@ -129,11 +149,56 @@ export default function Index() {
     { url: webpages1, alt: "Verkkosivusuunnittelu: responsiivinen etusivu", category: "Web and App Design" },
     { url: webpages2, alt: "Verkkosivusuunnittelu: yrityksen verkkosivu", category: "Web and App Design" },
     { url: webpages3, alt: "Verkkosivusuunnittelu: portfoliosivuston näkymä", category: "Web and App Design", objectPosition: "top" },
-    { url: photography3, alt: "Valokuvaus: tunnelmallinen maisemakuva", category: "Photography" },
-    { url: photography2, alt: "Valokuvaus: muotokuva luonnonvalossa", category: "Photography" },
-    { url: photography1, alt: "Valokuvaus: kaupunkinäkymä ja arkkitehtuuri", category: "Photography" },
-  ];
-
+    {
+      url: photoBizEspoocine,
+      alt: "Henkilökuvauksia markkinointikäyttöön",
+      category: "Photography",
+      title: "Henkilökuvauksia markkinointikäyttöön",
+      description: "Olen kuvannut henkilökuvia yrityksille, seuroille ja järjestöille markkinointikäyttöön — mm. ehdokaskuvia, tapahtumajulisteita ja näyttelymainoksia. Asiakkaitani ovat olleet mm. TAIKE, Leijoemot ry., Suomen Taiteilijaseuran Ateljeesäätiö, Lempäälän Vihreät ry., Kulttuurikeskus PiiPoo, Espoo Ciné.",
+      galleryImages: [
+        { url: photoBizEspoocine, alt: "Espoo Ciné International Film Festival 2017 -juliste" },
+        { url: photoBizPainthings, alt: "Painthings and Paintings -näyttelyjuliste, Galleria Ronga 2023" },
+        { url: photoBizEhdokas1, alt: "Ehdokaskuva 2021" },
+        { url: photoBizEhdokas2, alt: "Ehdokaskuva 2021" },
+        { url: photoBizJuniorcine, alt: "Junior Ciné -elokuvafestivaali 2018 -juliste" },
+      ],
+    },
+    {
+      url: photoHidden,
+      alt: "Muotokuva ja taiteellinen valokuvaus",
+      category: "Photography",
+      title: "Muotokuva ja taiteellinen valokuvaus",
+      description: "Studiovalaistuja ja luonnonvalossa toteutettuja muotokuvia sekä taiteellista henkilövalokuvausta.",
+      galleryImages: [
+        { url: photoHidden, alt: "Hidden — mustavalkoinen muotokuva" },
+        { url: photoAngel, alt: "Angel — lapsi enkelin siivillä" },
+        { url: photoKatariina, alt: "Pitkähiuksinen nainen — studiokuva" },
+        { url: photoLadylike, alt: "Ladylike — muotokuva pitsivarjolla" },
+        { url: photoPariskunta, alt: "Pariskunta — studiomuotokuva" },
+        { url: photoFirstgig, alt: "The First Gig — nuori kitaristi lavalla" },
+        { url: photoYoHermanni, alt: "Ylioppilas — mustavalkoinen muotokuva" },
+        { url: photoYoGirl, alt: "Ylioppilas omenapuun kukkien keskellä" },
+      ],
+    },
+    {
+      url: photoMaternityBelly,
+      alt: "Dokumentaarinen raskaus-, perhe- ja lapsikuvaus",
+      category: "Photography",
+      title: "Dokumentaarinen raskaus-, perhe- ja lapsikuvaus",
+      description: "Elämän tärkeimpiä hetkiä — raskausajan herkkyyttä, synnytyksen intensiteettiä, perheen arkea ja lasten ainutlaatuisia hetkiä dokumentaarisella otteella miljöö- ja kotikuvauksina.",
+      galleryImages: [
+        { url: photoMaternityBelly, alt: "Raskausvatsa — intiimi muotokuva" },
+        { url: photoBabyFlower, alt: "Vauva kukka kädessään" },
+        { url: photoMaternityMirror, alt: "Raskaana oleva nainen peilin edessä" },
+        { url: photoGirlCandy, alt: "Tyttö pillejä suussaan" },
+        { url: photoGirlCandyBw, alt: "Tyttö pillejä silmillään — mustavalko" },
+        { url: photoNewbornFamily, alt: "Vastasyntynyt vanhempiensa sylissä" },
+        { url: photoHourglass, alt: "Tyttö tiimalasi kädessä — mustavalko" },
+        { url: photoFlowersWoman, alt: "Nainen kukkakedolla" },
+        { url: photoFamilyForest, alt: "Perhe kävelee sänkipellolla" },
+        { url: photoNewborn, alt: "Vastasyntynyt — rauhallinen hetki" },
+      ],
+    },
   const skills = [
     { icon: Palette, name: "Visual Design", description: "Photoshop, Canva, Procreate" },
     { icon: Camera, name: "Photography", description: "Visual storytelling" },
