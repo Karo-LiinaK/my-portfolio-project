@@ -156,7 +156,7 @@ export default function Index() {
       alt: "Henkilökuvauksia markkinointikäyttöön",
       category: "Photography",
       title: "Henkilökuvauksia markkinointikäyttöön",
-      description: "Olen kuvannut henkilökuvia yrityksille, seuroille ja järjestöille markkinointikäyttöön — mm. ehdokaskuvia, tapahtumajulisteita ja näyttelymainoksia. Asiakkaitani ovat olleet mm. TAIKE, Leijoemot ry., Suomen Taiteilijaseuran Ateljeesäätiö, Lempäälän Vihreät ry., Kulttuurikeskus PiiPoo, Espoo Ciné.",
+      description: "Olen kuvannut henkilökuvia yrityksille, seuroille ja järjestöille markkinointikäyttöön, mm. ehdokaskuvia, tapahtumajulisteita ja näyttelymainoksia. Asiakkaitani ovat olleet mm. TAIKE, Leijoemot ry., Suomen Taiteilijaseuran Ateljeesäätiö, Lempäälän Vihreät ry., Kulttuurikeskus PiiPoo, Espoo Ciné.",
       galleryImages: [
         { url: photoBizEspoocine, alt: "Espoo Ciné International Film Festival 2017 -juliste" },
         { url: photoBizPainthings, alt: "Painthings and Paintings -näyttelyjuliste, Galleria Ronga 2023" },
