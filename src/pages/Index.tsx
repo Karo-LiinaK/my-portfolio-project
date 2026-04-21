@@ -186,9 +186,9 @@ export default function Index() {
     },
     {
       url: photoHidden,
-      alt: "Muotokuva ja taiteellinen valokuvaus",
+      alt: "Muotokuvaus ja luova henkilökuvaus",
       category: "Photography",
-      title: "Muotokuva ja taiteellinen valokuvaus",
+      title: "Muotokuvaus ja luova henkilökuvaus",
       description: "Studiovalaistuja ja luonnonvalossa toteutettuja muotokuvia sekä taiteellista henkilövalokuvausta.",
       galleryImages: [
         { url: photoHidden, alt: "Hidden, mustavalkoinen muotokuva" },
