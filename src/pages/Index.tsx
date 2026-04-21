@@ -201,8 +201,7 @@ export default function Index() {
         { url: photoNewborn, alt: "Vastasyntynyt, rauhallinen hetki" },
       ],
     },
-
-  const skills = [
+    const skills = [
     { icon: Palette, name: "UI/UX & Web Design", description: "Figma, Squarespace, Photoshop, Canva" },
     { icon: Camera, name: "Visual Production", description: "Photography, AI image generation" },
     { icon: Sparkles, name: "AI-Assisted Dev", description: "Claude, Lovable, Cursor, GitHub" },
