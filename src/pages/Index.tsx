@@ -59,8 +59,10 @@ function AnimatedSection({ children }: { children: React.ReactNode }) {
       return;
     }
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
-      { threshold: 0.1, rootMargin: "-100px" }
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -102,6 +104,17 @@ export default function Index() {
   const [heroVisible, setHeroVisible] = useState(prefersReducedMotion);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const [isDesktopWide, setIsDesktopWide] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(min-width: 1200px)").matches
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 1200px)");
+    const sync = () => setIsDesktopWide(mql.matches);
+    sync();
+    mql.addEventListener("change", sync);
+    return () => mql.removeEventListener("change", sync);
+  }, []);
 
   const rotatingWords = ["COLOR", "TYPOGRAPHY", "PHOTOGRAPHY", "WEB DESIGN", "VIBE CODING"];
 
@@ -228,43 +241,59 @@ export default function Index() {
     { icon: Sparkles, name: "AI-Assisted Dev", description: "Claude, Lovable, Cursor, GitHub" },
   ];
 
+  const scrollSectionIntoView = (el: HTMLElement) => {
+    el.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  };
+
   const scrollToContact = () => {
-    const target = document.getElementById("contact");
-    if (target) {
-      target.setAttribute("tabindex", "-1");
-      target.focus({ preventScroll: true });
-      target.scrollIntoView({ behavior: "smooth" });
-    }
     setMobileMenuOpen(false);
+    const target = document.getElementById("contact");
+    if (!target) return;
+    target.setAttribute("tabindex", "-1");
+    const run = () => {
+      target.focus({ preventScroll: true });
+      scrollSectionIntoView(target);
+    };
+    requestAnimationFrame(() => {
+      requestAnimationFrame(run);
+    });
   };
 
   const handleNavClick = (id: string) => {
-    const target = document.getElementById(id);
-    if (target) {
-      target.setAttribute("tabindex", "-1");
-      target.focus({ preventScroll: true });
-      target.scrollIntoView({ behavior: "smooth" });
-    }
     setMobileMenuOpen(false);
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.setAttribute("tabindex", "-1");
+    const run = () => {
+      target.focus({ preventScroll: true });
+      scrollSectionIntoView(target);
+    };
+    requestAnimationFrame(() => {
+      requestAnimationFrame(run);
+    });
   };
 
-  const getLetterSpacing = (word: string) => {
+  const getLetterSpacing = (word: string, mobile: boolean) => {
     switch (word) {
-      case "COLOR": return "0.73em";
-      case "TYPOGRAPHY": return "-0.03em";
-      case "PHOTOGRAPHY": return "-0.12em";
-      case "WEB DESIGN": return "0.03em";
-      case "VIBE CODING": return "-0.01em";
-      default: return "-0.01em";
+      case "COLOR": return mobile ? "0.25em" : "0.73em";
+      case "TYPOGRAPHY": return mobile ? "-0.06em" : "-0.03em";
+      case "PHOTOGRAPHY": return mobile ? "-0.14em" : "-0.12em";
+      case "WEB DESIGN": return mobile ? "0em" : "0.03em";
+      case "VIBE CODING": return mobile ? "-0.03em" : "-0.01em";
+      default: return mobile ? "-0.03em" : "-0.01em";
     }
   };
 
-  const getScaleX = (word: string) => {
+  const getScaleX = (word: string, mobile: boolean) => {
     switch (word) {
-      case "TYPOGRAPHY": return "scaleX(0.92)";
-      case "PHOTOGRAPHY": return "scaleX(0.73)";
-      case "WEB DESIGN": return "scaleX(1.06)";
-      case "VIBE CODING": return "scaleX(0.95)";
+      case "TYPOGRAPHY": return mobile ? "scaleX(0.82)" : "scaleX(0.92)";
+      case "PHOTOGRAPHY": return mobile ? "scaleX(0.62)" : "scaleX(0.705)";
+      case "WEB DESIGN": return mobile ? "scaleX(1)" : "scaleX(1.06)";
+      case "VIBE CODING": return mobile ? "scaleX(0.9)" : "scaleX(0.95)";
       default: return "scaleX(1)";
     }
   };
@@ -278,10 +307,10 @@ export default function Index() {
     }
   };
 
-  const heroMainSize = isMobile ? 42 : 76;
+  const heroMainSize = isMobile ? 36 : 76;
   const heroDesignerSize = isMobile ? 72 : 160;
   const heroCreatingSize = isMobile ? 72 : 160;
-  const heroRotatingSize = isMobile ? 36 : 76;
+  const heroRotatingSize = isMobile ? heroMainSize : 76;
   const sectionTitleSize = isMobile ? 36 : 56;
   const gridCols = isMobile ? "repeat(1, 1fr)" : "repeat(3, 1fr)";
   const skillGridCols = isMobile ? "repeat(1, 1fr)" : "repeat(3, 1fr)";
@@ -317,6 +346,12 @@ export default function Index() {
         .btn-hover:hover { transform: scale(1.05); }
         .btn-hover:active { transform: scale(0.95); }
         .rotating-word-enter { animation: slideUp 0.4s ease-in-out forwards; }
+        /* Extra mask margin for background-clip:text + Playfair serifs (Safari/WebKit especially) */
+        .hero-rotating-word {
+          -webkit-text-stroke: 0.45px transparent;
+          text-stroke: 0.45px transparent;
+          paint-order: stroke fill;
+        }
         @keyframes mobileMenuIn {
           from { opacity: 0; transform: translateY(-10px); }
           to { opacity: 1; transform: translateY(0); }
@@ -328,6 +363,9 @@ export default function Index() {
           .project-card:hover { transform: none; }
           .skill-card:hover { transform: none; }
           .mobile-menu-enter { animation: none; opacity: 1; }
+        }
+        #works, #about, #skills, #contact {
+          scroll-margin-top: 5rem;
         }
       `}</style>
 
@@ -372,13 +410,73 @@ export default function Index() {
                   <div style={{ fontSize: heroMainSize, letterSpacing: "-0.08em", fontFamily: "'Playfair Display', serif", textTransform: "uppercase", lineHeight: 1, marginBottom: "0.25rem", color: "#1a1a1a" }}>Visual</div>
                   <div style={{ fontSize: heroDesignerSize, letterSpacing: -2, fontWeight: 700, fontFamily: "'Playfair Display', serif", textTransform: "uppercase", lineHeight: 0.85, marginBottom: "0.25rem", color: "#937B39" }}>Designer</div>
                   <div style={{ fontSize: heroCreatingSize, letterSpacing: -2, fontWeight: 700, fontFamily: "'Playfair Display', serif", textTransform: "uppercase", lineHeight: 0.85, marginBottom: "0.25rem", background: "linear-gradient(90deg, #8B5CF6 0%, #EC4899 30%, #F97316 65%, #F97316 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Creating</div>
-                  <div style={{ display: "flex", alignItems: "center", gap: isMobile ? "0.75rem" : "1.5rem", marginBottom: "0.5rem", overflow: "visible", width: "100%" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: isMobile ? "0.75rem" : "1.5rem", marginBottom: "0.5rem", overflow: "visible", width: "100%", maxWidth: "100%", minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "flex-end", gap: "0.25rem", position: "relative", flexShrink: 0 }}>
                       <div style={{ fontSize: heroMainSize, letterSpacing: "-0.08em", fontFamily: "'Playfair Display', serif", textTransform: "uppercase", lineHeight: 1, color: "#1a1a1a" }}>Impact</div>
-                      <div style={{ fontSize: isMobile ? 16 : 26, display: "flex", fontWeight: 700, textTransform: "uppercase", fontFamily: "'Oswald', sans-serif", writingMode: "vertical-rl", transform: "rotate(180deg)", color: "#1a1a1a", lineHeight: 2.5, alignSelf: "flex-end", marginBottom: isMobile ? 4 : 7, marginLeft: isMobile ? -6 : -10 }}>with</div>
+                      <div
+                        style={{
+                          fontSize: isMobile ? 13 : 26,
+                          display: "flex",
+                          fontWeight: isMobile ? 500 : 700,
+                          textTransform: "uppercase",
+                          fontFamily: "'Oswald', sans-serif",
+                          writingMode: "vertical-rl",
+                          position: "relative",
+                          top: isMobile ? 3 : isDesktopWide ? 3 : 0,
+                          transform: "rotate(180deg)",
+                          color: "#1a1a1a",
+                          lineHeight: isMobile ? 2.0 : 2.5,
+                          letterSpacing: isMobile ? "0.04em" : undefined,
+                          alignSelf: "center",
+                          marginBottom: 0,
+                          marginLeft: isMobile ? -6 : -10,
+                        }}
+                      >
+                        with
+                      </div>
                     </div>
-                    <div style={{ position: "relative", height: heroRotatingSize, marginLeft: isMobile ? -12 : -25, overflow: "visible", width: isMobile ? 600 : 2000 }}>
-                      <div key={activeWord} className="rotating-word-enter" style={{ fontFamily: "'Playfair Display', serif", fontSize: heroRotatingSize, fontWeight: 700, letterSpacing: getLetterSpacing(rotatingWords[activeWord]), transform: getScaleX(rotatingWords[activeWord]), transformOrigin: "left center", whiteSpace: "nowrap", lineHeight: 1, textTransform: "uppercase", position: "absolute", left: 0, top: 0, width: isMobile ? 600 : 3000, background: "linear-gradient(90deg, #8B5CF6 0%, #EC4899 35%, #F97316 60%, #F97316 100%)", backgroundSize: isMobile ? "400px 100%" : "800px 100%", backgroundRepeat: "no-repeat", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                    <div
+                      style={{
+                        position: "relative",
+                        height: heroRotatingSize,
+                        marginLeft: isMobile ? -13 : isDesktopWide ? -28 : -26,
+                        overflowX: "visible",
+                        overflowY: "visible",
+                        flex: "1 1 0%",
+                        minWidth: 0,
+                        width: "100%",
+                        maxWidth: "100%",
+                        paddingRight: isMobile ? 10 : "max(0.2em, 10px)",
+                        boxSizing: "border-box",
+                      }}
+                    >
+                      <div
+                        key={activeWord}
+                        className="rotating-word-enter hero-rotating-word"
+                        style={{
+                          fontFamily: "'Playfair Display', serif",
+                          fontSize: heroRotatingSize,
+                          fontWeight: 700,
+                          letterSpacing: getLetterSpacing(rotatingWords[activeWord], isMobile),
+                          transform: getScaleX(rotatingWords[activeWord], isMobile),
+                          transformOrigin: "left center",
+                          whiteSpace: "nowrap",
+                          lineHeight: 1,
+                          textTransform: "uppercase",
+                          position: "absolute",
+                          left: 0,
+                          top: 0,
+                          width: "max-content",
+                          paddingLeft: "0.06em",
+                          paddingRight: isMobile ? "0.5ch" : "max(0.22em, 12px)",
+                          background: "linear-gradient(90deg, #8B5CF6 0%, #EC4899 35%, #F97316 60%, #F97316 100%)",
+                          backgroundSize: isMobile ? "400px 100%" : "800px 100%",
+                          backgroundRepeat: "no-repeat",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          backgroundClip: "text",
+                        }}
+                      >
                         {rotatingWords[activeWord]}
                       </div>
                     </div>
@@ -386,8 +484,8 @@ export default function Index() {
                 </div>
               </div>
               <div style={{ maxWidth: 600, opacity: heroVisible ? 1 : 0, transition: prefersReducedMotion ? "none" : "opacity 0.8s ease-out 0.8s" }}>
-                <p style={{ fontSize: isMobile ? 17 : 20, color: "#1e293b", lineHeight: 1.8, marginBottom: "2rem", fontFamily: "'EB Garamond', serif", fontWeight: 500, letterSpacing: "0.5px" }}>
-                  Matkani graafisesta suunnittelusta ja valokuvauksesta on vienyt minut digitaalisen tuotekehityksen pariin. Intohimonani on UI/UX-suunnittelu, jota toteutan modernilla otteella: hyödynnän Figman tekoälyominaisuuksia visuaalisessa työssäni ja kehitän frontend-ratkaisuja hyödyntäen Claudea, Cursoria ja Lovablea.{"\n\n"}Hallitsen HTML:n, CSS:n ja Tailwindin perusteet, ja syvennän osaamistani jatkuvasti Reactin ja TypeScriptin parissa. Versionhallinnassa luotan GitHubiin ja koodin laadunvarmistuksessa hyödynnän CodeRabbitia.{"\n\n"}Uskon, että parhaat digitaaliset tuotteet syntyvät empatiasta. Ihmisläheinen työkokemukseni auttaa minua luomaan saavutettavia ratkaisuja, jotka oikeasti palvelevat käyttäjäänsä. Tekoäly on kiinteä osa työnkulkuani – se antaa minulle mahdollisuuden keskittyä enemmän luovuuteen, käytettävyyteen ja ratkaisujen hiomiseen.
+                <p style={{ fontSize: isMobile ? 17 : 20, color: "#1e293b", lineHeight: 1.5, marginBottom: "2rem", fontFamily: "'EB Garamond', serif", fontWeight: 500, letterSpacing: "0.5px" }}>
+                 Matkani graafisesta suunnittelusta ja valokuvauksesta on vienyt minut digitaalisen tuotekehityksen pariin. Kiinnostukseni kohdistuu UI/UX-suunnitteluun ja ohjelmistokehityksen käyttäjärajapintatehtäviin, joita lähestyn ratkaisukeskeisellä otteella. Syvennän osaamistani AI-avusteisessa suunnittelussa — erityisesti Figman tekoälyominaisuuksissa sekä Claudea, Cursoria ja Lovablea hyödyntävässä frontend-kehityksessä.<br /><br />Hallitsen HTML:n ja CSS:n perusteet ja opiskelen parhaillaan JavaScriptia ja Reactia modernin front-end kehityksen intensiiviopinnoissa. Versionhallinnassa luotan GitHubiin ja koodin laadunvarmistuksessa hyödynnän CodeRabbitia.<br /><br />Uskon, että parhaat digitaaliset tuotteet syntyvät empatiasta. Ihmisläheinen työkokemukseni auttaa minua luomaan saavutettavia ratkaisuja, jotka oikeasti palvelevat käyttäjäänsä. Tekoäly on kiinteä osa työnkulkuani – se antaa minulle mahdollisuuden keskittyä enemmän luovuuteen, käytettävyyteen ja ratkaisujen hiomiseen.
                 </p>
                 <button className="btn-hover" onClick={scrollToContact} style={{ padding: isMobile ? "0.875rem 2rem" : "1rem 2.5rem", background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", color: "white", border: "none", borderRadius: 50, fontSize: isMobile ? 14 : 16, fontWeight: 600, cursor: "pointer", boxShadow: "0 10px 30px rgba(102, 126, 234, 0.4)", fontFamily: "'Oswald', sans-serif", textTransform: "uppercase", letterSpacing: "1px", transition: "transform 0.2s" }}>
                   Let's Connect

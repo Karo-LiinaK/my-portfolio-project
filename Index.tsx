@@ -608,7 +608,7 @@ export default function Index() {
               <p style={{
                 fontSize: isMobile ? 17 : 20,
                 color: "#1e293b",
-                lineHeight: 1.8,
+                lineHeight: 1.5,
                 marginBottom: "2rem",
                 fontFamily: "'EB Garamond', serif",
                 fontWeight: 500,
