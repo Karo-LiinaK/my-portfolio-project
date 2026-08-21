@@ -35,6 +35,8 @@ import photoKatariina from "@/assets/photo-katariina.jpg";
 import photoLadylike from "@/assets/photo-ladylike.jpg";
 import photoPariskunta from "@/assets/photo-pariskunta.jpg";
 import photoFirstgig from "@/assets/photo-firstgig.jpg";
+import kaneliaK2 from "@/assets/kanelia-k-2.jpg";
+import kaneliaK3 from "@/assets/kanelia-k-3.jpg";
 import photoMaternityBelly from "@/assets/photo-maternity-belly.jpg";
 import photoBabyFlower from "@/assets/photo-baby-flower.jpg";
 import photoMaternityMirror from "@/assets/photo-maternity-mirror.jpg";
@@ -205,10 +207,11 @@ export default function Index() {
       description: "Studiovalaistuja ja luonnonvalossa toteutettuja muotokuvia sekä taiteellista henkilövalokuvausta.",
       galleryImages: [
         { url: photoHidden, alt: "Hidden, mustavalkoinen muotokuva" },
+        { url: kaneliaK3, alt: "Kanelia, pitsihuivi muotokuvassa" },
         { url: photoAngel, alt: "Angel, lapsi enkelin siivillä" },
         { url: photoKatariina, alt: "Pitkähiuksinen nainen, studiokuva" },
         { url: photoLadylike, alt: "Ladylike, muotokuva pitsivarjolla" },
-        { url: photoPariskunta, alt: "Pariskunta, studiomuotokuva" },
+        { url: kaneliaK2, alt: "Kanelia, taiteellinen asento portailla" },
         { url: photoFirstgig, alt: "The First Gig, nuori kitaristi lavalla" },
         { url: photoYoHermanni, alt: "Ylioppilas, mustavalkoinen muotokuva" },
         { url: photoYoGirl, alt: "Ylioppilas omenapuun kukkien keskella" },
