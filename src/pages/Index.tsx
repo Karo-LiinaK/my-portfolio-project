@@ -207,6 +207,7 @@ export default function Index() {
       description: "Studiovalaistuja ja luonnonvalossa toteutettuja muotokuvia sekä taiteellista henkilövalokuvausta.",
       galleryImages: [
         { url: photoHidden, alt: "Hidden, mustavalkoinen muotokuva" },
+        { url: kaneliaK3, alt: "Kanelia, pitsihuivi muotokuvassa" },
         { url: photoAngel, alt: "Angel, lapsi enkelin siivillä" },
         { url: photoKatariina, alt: "Pitkähiuksinen nainen, studiokuva" },
         { url: photoLadylike, alt: "Ladylike, muotokuva pitsivarjolla" },
