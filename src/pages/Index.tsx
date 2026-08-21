@@ -211,7 +211,7 @@ export default function Index() {
         { url: photoAngel, alt: "Angel, lapsi enkelin siivillä" },
         { url: photoKatariina, alt: "Pitkähiuksinen nainen, studiokuva" },
         { url: photoLadylike, alt: "Ladylike, muotokuva pitsivarjolla" },
-        { url: photoPariskunta, alt: "Pariskunta, studiomuotokuva" },
+        { url: kaneliaK2, alt: "Kanelia, taiteellinen asento portailla" },
         { url: photoFirstgig, alt: "The First Gig, nuori kitaristi lavalla" },
         { url: photoYoHermanni, alt: "Ylioppilas, mustavalkoinen muotokuva" },
         { url: photoYoGirl, alt: "Ylioppilas omenapuun kukkien keskella" },
