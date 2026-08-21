@@ -35,6 +35,8 @@ import photoKatariina from "@/assets/photo-katariina.jpg";
 import photoLadylike from "@/assets/photo-ladylike.jpg";
 import photoPariskunta from "@/assets/photo-pariskunta.jpg";
 import photoFirstgig from "@/assets/photo-firstgig.jpg";
+import kaneliaK2 from "@/assets/kanelia-k-2.jpg";
+import kaneliaK3 from "@/assets/kanelia-k-3.jpg";
 import photoMaternityBelly from "@/assets/photo-maternity-belly.jpg";
 import photoBabyFlower from "@/assets/photo-baby-flower.jpg";
 import photoMaternityMirror from "@/assets/photo-maternity-mirror.jpg";
